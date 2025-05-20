@@ -183,9 +183,11 @@
             <div class="rectangle-3"></div>
             <div class="rectangle-4"></div>
             <div class="text-wrapper-8">80</div>
-            <div class="text-wrapper-9">Pend. Biologi</div>
+            <img class="chevron-down" src="img/chevron-down-2.png" />
+            <div class="text-wrapper-9">TEKNIK</div>
             <div class="text-wrapper-10">Total Pengunjung</div>
-            <div class="text-wrapper-11">Pengunjung Fakultas Terbanyak</div>
+            <div class="pengunjung-terbanyak">Pengunjung&nbsp;&nbsp;Terbanyak</div>
+            <div class="text-wrapper-11">Fakultas</div>
           </div>
           <div class="overlap-5">
             <div class="overlap-6">
@@ -196,39 +198,43 @@
           </div>
           <div class="overlap-7">
             <div class="overlap-8">
-              <div class="text-wrapper-14">Teknik Informatika</div>
-              <div class="text-wrapper-15">Peminjam Buku Fakultas Terbanyak</div>
-              <div class="text-wrapper-16">67</div>
+              <img class="chevron-down-2" src="img/chevron-down.png" />
+              <div class="text-wrapper-14">FMIPA</div>
+              <div class="text-wrapper-15">Fakultas</div>
+              <div class="overlap-9">
+                <div class="text-wrapper-16">Peminjam Buku Terbanyak</div>
+                <div class="text-wrapper-17">67</div>
+              </div>
             </div>
             <div class="rectangle-6"></div>
           </div>
         </div>
         <div class="side-bar">
-          <div class="overlap-9">
+          <div class="overlap-10">
             <div class="rectangle-7"></div>
-            <div class="text-wrapper-17">Pengaturan akun</div>
+            <div class="text-wrapper-18">Pengaturan akun</div>
             <div class="group"></div>
             <img class="image" src="img/image-5.png" />
             <div class="group-2">
               <div class="overlap-group-3">
-                <div class="text-wrapper-18">Dashboard</div>
+                <div class="text-wrapper-19">Dashboard</div>
                 <img class="vector" src="img/vector-3.svg" />
               </div>
             </div>
             <div class="group-3">
-              <div class="text-wrapper-19">Data Pengunjung</div>
+              <div class="text-wrapper-20">Data Pengunjung</div>
               <img class="people" src="img/people.png" />
             </div>
             <div class="group-4">
-              <div class="text-wrapper-20">Data Peminjaman Buku</div>
+              <div class="text-wrapper-21">Data Peminjaman Buku</div>
               <img class="vector-2" src="img/vector.svg" />
             </div>
             <div class="group-5">
-              <div class="text-wrapper-21">Data Akun</div>
+              <div class="text-wrapper-22">Data Akun</div>
               <img class="vector-3" src="img/vector-2.svg" />
             </div>
             <div class="group-6">
-              <div class="text-wrapper-21">Jumlah Koleksi</div>
+              <div class="text-wrapper-22">Jumlah Koleksi</div>
               <div class="icon">
                 <div class="group-7">
                   <div class="overlap-group-4">
@@ -242,19 +248,19 @@
           </div>
         </div>
         <header class="header">
-          <div class="overlap-10">
+          <div class="overlap-11">
             <div class="overlap-group-5">
               <img class="selamat-datang-admin" src="img/selamat-datang-admin.png" />
               <p class="home-dashboard">
-                <span class="span">Home &gt; </span> <span class="text-wrapper-22">Dashboard </span>
+                <span class="span">Home &gt; </span> <span class="text-wrapper-23">Dashboard </span>
               </p>
             </div>
-            <div class="overlap-11">
+            <div class="overlap-12">
               <img class="search" src="img/search.png" />
-              <div class="text-wrapper-23">Cari......</div>
+              <div class="text-wrapper-24">Cari......</div>
             </div>
             <img class="vector-4" src="img/vector-4.svg" />
-            <div class="text-wrapper-24">Admin</div>
+            <div class="text-wrapper-25">Admin</div>
           </div>
         </header>
       </div>
