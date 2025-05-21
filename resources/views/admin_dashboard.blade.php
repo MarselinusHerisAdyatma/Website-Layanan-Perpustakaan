@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="styleguide.css" />
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ asset('css/globals.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styleguide.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <div class="frame">
+    <div class="admin-dashboard">
       <div class="div">
         <div class="content">
           <div class="overlap">
@@ -250,17 +253,17 @@
         <header class="header">
           <div class="overlap-11">
             <div class="overlap-group-5">
-              <img class="selamat-datang-admin" src="img/selamat-datang-admin.png" />
+              <div class="text-wrapper-23">Selamat Datang, Admin</div>
               <p class="home-dashboard">
-                <span class="span">Home &gt; </span> <span class="text-wrapper-23">Dashboard </span>
+                <span class="span">Home &gt; </span> <span class="text-wrapper-24">Dashboard </span>
               </p>
             </div>
             <div class="overlap-12">
               <img class="search" src="img/search.png" />
-              <div class="text-wrapper-24">Cari......</div>
+              <div class="text-wrapper-25">Cari......</div>
             </div>
             <img class="vector-4" src="img/vector-4.svg" />
-            <div class="text-wrapper-25">Admin</div>
+            <div class="text-wrapper-26">Admin</div>
           </div>
         </header>
       </div>
