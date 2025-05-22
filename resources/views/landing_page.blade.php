@@ -23,7 +23,7 @@
               </div>
               <div class="overlap-3">
                 <img class="lock" src="{{ asset('images/login.png') }}" />
-                <div class="text-wrapper-2">LOGIN</div>
+                <div class="text-wrapper-2"><a href="{{ route('login') }}">LOGIN</a></div>
               </div>
             </div>
           </div>

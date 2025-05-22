@@ -1,7 +1,7 @@
 @extends('templates.dashboard')
 
 @section('content')
-    <div class="admin-dashboard mt-navbar">
+    <div class="admin-dashboard">
       <div class="div">
         <div class="content">
           <div class="overlap">
