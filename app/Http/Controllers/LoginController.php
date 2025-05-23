@@ -44,7 +44,7 @@ class LoginController extends Controller
     {
         return match ($role) {
             'Super Admin' => redirect('/dashboard/superadmin'),
-            'Admin'       => redirect('/dashboard/admin'),
+            'Admin'       => redirect('/index/admin'),
             'User'        => redirect('/dashboard/user'),
             default       => redirect('/login')->with('error', 'Role tidak dikenali.'),
         };
