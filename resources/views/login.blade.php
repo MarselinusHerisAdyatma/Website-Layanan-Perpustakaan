@@ -119,7 +119,7 @@
         <img class="img" src="{{ asset('images/Logo Perpus Unila.png') }}" alt="Perpustakaan Logo">
         <div class="close">
             <a href="{{ route('landing_page') }}">
-                <i class="bi bi-arrow-left-circle"></i>
+                <i class="bi bi-arrow-left-circle fs-2"></i>
             </a>
         </div>
     </div>

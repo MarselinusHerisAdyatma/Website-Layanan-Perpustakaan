@@ -23,9 +23,8 @@
             </form>
 
             <!-- Profil Icon -->
-            <div class="text-center">
-                <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                    style="width: 40px; height: 40px;">
+            <div class="d-flex flex-column align-items-center text-center">
+                <div class="rounded-circle bg-white d-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
                     <i class="bi bi-person-fill text-dark fs-4"></i>
                 </div>
                 <small class="text-white">{{ Auth::user()->name }}</small>
@@ -37,60 +36,137 @@
             <div class="offcanvas-header flex-column align-items-center">
                 <img src="{{ asset('images/Logo Perpus Unila.png') }}" alt="Logo" style="height: 70px;">
             </div>
-            <hr>
+            <hr class="w-100 my-1 border-light">
+            {{-- Menu Sidebar Untuk Role Super Admin --}}
+            @if(auth()->user()->role_id == 1)
             <div class="offcanvas-body d-flex flex-column justify-content-between">
-                <!-- MENU UTAMA -->
                 <ul class="navbar-nav">
-                    <li class="nav-item mt-2 mb-2">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ Request::is('index/admin') ? 'active-menu' : 'text-white hover-effect' }}" href="/index/admin">
-                            <i class="bi bi-house-door-fill me-2"></i> Dashboard
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('superadmin.index') ? 'active-menu' : '' }}" 
+                        href="{{ route('superadmin.index') }}">
+                        <i class="bi bi-house-door-fill me-2"></i> Dashboard
                         </a>
                     </li>
-                    <hr>
-                    <li class="nav-item mt-2 mb-2">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect" href="/pengunjung">
-                            <i class="bi bi-people-fill me-2"></i> Data Pengunjung
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect" 
+                        href="">
+                        <i class="bi bi-people-fill me-2"></i> Data Pengunjung
                         </a>
                     </li>
-                    <hr>
-                    <li class="nav-item mt-2 mb-2">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect" href="/peminjaman">
-                            <i class="bi bi-book-fill me-2"></i> Data Peminjaman Buku
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect"
+                        href="">
+                        <i class="bi bi-book-fill me-2"></i> Data Peminjaman Buku
                         </a>
                     </li>
-                    <hr>
-                    <li class="nav-item mt-2 mb-2">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect" href="/akun">
-                            <i class="bi bi-person-lines-fill me-2"></i> Data Akun
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect" 
+                        href="">
+                        <i class="bi bi-person-lines-fill me-2"></i> Data Akun
                         </a>
                     </li>
-                    <hr>
-                    <li class="nav-item mt-2 mb-2">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect" href="/koleksi">
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect"
+                        href="">
                             <i class="bi bi-collection-fill me-2"></i> Jumlah Koleksi
                         </a>
                     </li>
-                    <hr>
-                    <li class="nav-item mt-2 mb-2">
-                        <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="nav-link text-danger d-flex align-items-center hover-effect" style="background: none; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; width: 100%; text-align: left;">
+                            <button type="submit" class="nav-link text-danger d-flex align-items-center hover-effect bg-transparent border-0">
                                 <i class="bi bi-box-arrow-right me-2"></i> LOG OUT
                             </button>
                         </form>
                     </li>
                 </ul>
-
-                <!-- PENGATURAN DI BAWAH -->
-                <div class="text-center">
-                    <a href="/pengaturan-akun" class="text-decoration-none">
-                        <div class="bg-white rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                            <i class="bi bi-gear-fill" style="color: #1A1687; font-size: 1.75rem;"></i>
-                        </div>
-                        <small class="text-white d-block mt-2 mb-4"><b>Pengaturan akun</b></small>
-                    </a>
-                </div>
             </div>
+            @endif
+
+            {{-- Menu Sidebar Untuk Role Admin --}}
+            @if(auth()->user()->role_id == 2)
+
+            <div class="offcanvas-body d-flex flex-column justify-content-between">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('admin.index') ? 'active-menu' : '' }}" 
+                        href="{{ route('admin.index') }}">
+                        <i class="bi bi-house-door-fill me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('admin.data_pengunjung') ? 'active-menu' : '' }}" 
+                        href="{{ route('admin.data_pengunjung') }}">
+                        <i class="bi bi-people-fill me-2"></i> Data Pengunjung
+                        </a>
+                    </li>
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('admin.data_peminjaman') ? 'active-menu' : '' }}"
+                        href="{{ route('admin.data_peminjaman') }}">
+                        <i class="bi bi-book-fill me-2"></i> Data Peminjaman Buku
+                        </a>
+                    </li>
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('admin.data_akun') ? 'active-menu' : '' }}" 
+                        href="{{ route('admin.data_akun') }}">
+                        <i class="bi bi-person-lines-fill me-2"></i> Data Akun
+                        </a>
+                    </li>
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('admin.data_koleksi') ? 'active-menu' : '' }}"
+                        href="{{ route('admin.data_koleksi') }}">
+                            <i class="bi bi-collection-fill me-2"></i> Jumlah Koleksi
+                        </a>
+                    </li>
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="nav-link text-danger d-flex align-items-center hover-effect bg-transparent border-0">
+                                <i class="bi bi-box-arrow-right me-2"></i> LOG OUT
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            @endif
+            {{-- Menu Sidebar Untuk Role User --}}
+            @if(auth()->user()->role_id == 3)
+            <div class="offcanvas-body d-flex flex-column justify-content-between">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('user.index') ? 'active-menu' : '' }}" 
+                        href="{{ route('user.index') }}">
+                            <i class="bi bi-house-door-fill me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect" href="">
+                            <i class="bi bi-kanban me-2"></i> Proyek
+                        </a>
+                    </li>
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="nav-link text-danger d-flex align-items-center hover-effect bg-transparent border-0">
+                                <i class="bi bi-box-arrow-right me-2"></i> LOG OUT
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            @endif    
         </div>
     </div>
 </nav>

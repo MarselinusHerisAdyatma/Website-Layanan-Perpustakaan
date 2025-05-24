@@ -85,7 +85,7 @@
     <div class="header">
         <img src="{{ asset('images/Logo Perpus Unila.png') }}" alt="Logo Perpustakaan">
         <a href="{{ route('login') }}" class="text-white">
-            <i class="bi bi-box-arrow-in-right"></i> Login
+            <i class="bi bi-box-arrow-in-right fs-3"></i>
         </a>
     </div>
 
