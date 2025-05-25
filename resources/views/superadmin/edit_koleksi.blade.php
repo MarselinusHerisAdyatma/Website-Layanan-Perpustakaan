@@ -6,9 +6,9 @@
     <ol class="breadcrumb-custom">
         <li><a href="{{ route('landing_page') }}"><i class="bi bi-house-door-fill"></i></a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
-        <li><a href="{{ route('admin.index') }}">Dashboard</a></li>
+        <li><a href="{{ route('superadmin.index') }}">Dashboard</a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
-        <li><a href="{{ route('admin.data_koleksi') }}">Data Koleksi</a></li>
+        <li><a href="{{ route('superadmin.data_koleksi') }}">Data Koleksi</a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
         <li class="active" >Edit Koleksi</li>
     </ol>

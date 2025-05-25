@@ -6,9 +6,9 @@
     <ol class="breadcrumb-custom">
         <li><a href="{{ route('landing_page') }}"><i class="bi bi-house-door-fill"></i></a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
-        <li><a href="{{ route('admin.index') }}">Dashboard</a></li>
+        <li><a href="{{ route('superadmin.index') }}">Dashboard</a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
-        <li class="active" >Data Pengunjung</li>
+        <li class="active" >Data Peminjaman Buku</li>
     </ol>
 </nav>
 
@@ -17,7 +17,7 @@
     <!-- JUDUL -->
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5 class="table-heading">
-        <i class="bi bi-people-fill me-2"></i> Tabel Data Pengunjung
+        <i class="bi bi-book-fill me-2"></i> Tabel Data Peminjaman
       </h5>
 
       <!-- Filter Dropdown dan Search -->
@@ -45,24 +45,26 @@
     </div>
 
     <!-- TABEL -->
-    <table class="table table-bordered table-striped align-middle text-center table-pengunjung">
+    <table class="table table-bordered table-striped align-middle text-center table-peminjaman">
       <thead>
         <tr>
           <th>No</th>
-          <th>Nama</th>
-          <th>Asal</th>
-          <th>Tanggal</th>
-          <th>Waktu</th>
+          <th>Nama Peminjam</th>
+          <th>Judul Buku</th>
+          <th>Tanggal Pinjam</th>
+          <th>Tanggal Kembali</th>
+          <th>Status</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td>Aldo</td>
-          <td>Fakultas Teknik</td>
-          <td>2024-05-24</td>
-          <td>08:45</td>
+          <td>Ayu Lestari</td>
+          <td>Pemrograman Laravel</td>
+          <td>2024-05-20</td>
+          <td>2024-05-25</td>
+          <td><span class="badge bg-success">Dikembalikan</span></td>
           <td>
             <button class="btn btn-outline-primary btn-sm" title="Edit">
               <i class="bi bi-pencil-square"></i>

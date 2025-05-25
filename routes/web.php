@@ -27,6 +27,11 @@ Route::post('/logout', function () {
 // SUPER ADMIN
 Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->name('superadmin.')->group(function () {
     Route::get('/', [SuperAdminController::class, 'index'])->name('index');
+    Route::get('/data-pengunjung', [SuperAdminController::class, 'dataPengunjung'])->name('data_pengunjung');
+    Route::get('/data-peminjaman', [SuperAdminController::class, 'dataPeminjaman'])->name('data_peminjaman');
+    Route::get('/data-akun', [SuperAdminController::class, 'dataAkun'])->name('data_akun');
+    Route::get('/data-koleksi', [SuperAdminController::class, 'dataKoleksi'])->name('data_koleksi');
+    Route::get('/edit-koleksi', [SuperAdminController::class, 'editKoleksi'])->name('edit_koleksi');
     });
     
 // ADMIN
@@ -42,6 +47,8 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'LoginCheck:2'])->name('ad
 // USER
 Route::prefix('dashboard/user')->middleware(['auth', 'LoginCheck:3'])->name('user.')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/data-pengunjung', [UserController::class, 'dataPengunjung'])->name('data_pengunjung');
+    Route::get('/data-peminjaman', [UserController::class, 'dataPeminjaman'])->name('data_peminjaman');
     });
 
 

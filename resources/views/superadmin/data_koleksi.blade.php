@@ -6,9 +6,9 @@
     <ol class="breadcrumb-custom">
         <li><a href="{{ route('landing_page') }}"><i class="bi bi-house-door-fill"></i></a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
-        <li><a href="{{ route('admin.index') }}">Dashboard</a></li>
+        <li><a href="{{ route('superadmin.index') }}">Dashboard</a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
-        <li class="active" >Data Koleksi</li>
+        <li class="active"><b>Data Koleksi</b></li>
     </ol>
 </nav>
 
@@ -21,7 +21,7 @@
                     <p class="koleksi-subtitle">Statistik koleksi perpustakaan terkini</p>
                 </div>
                 <!-- Tombol edit -->
-                <a href="{{ route('admin.edit_koleksi') }}" class="btn-edit-icon" title="Edit Koleksi">✏️</a>
+                <a href="{{ route('superadmin.edit_koleksi') }}" class="btn-edit-icon" title="Edit Koleksi">✏️</a>
             </div>
 
             <div class="table-responsive">

@@ -11,6 +11,14 @@ class UserController extends Controller
         return view('user.index');
     }
 
-    // Tambahkan method lain sesuai kebutuhan
+    public function dataPengunjung()
+    {
+        return view('user.data_pengunjung');
+    }
+
+    public function dataPeminjaman()
+    {
+        return view('user.data_peminjaman');
+    }
 }
 
