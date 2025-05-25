@@ -4,10 +4,10 @@
 <!-- Breadcrumb -->
 <nav class="breadcrumb-container" aria-label="breadcrumb">
     <ol class="breadcrumb-custom">
-        <li><i class="bi bi-house-door-fill"></i></li>
-        <li>/</li>
-        <li>Dashboard</li>
-        <li>/</li>
+        <li><a href="{{ route('landing_page') }}"><i class="bi bi-house-door-fill"></i></a></li>
+        <li><li><i class="bi bi-chevron-right separator"></i></li></li>
+        <li><a href="{{ route('admin.index') }}">Dashboard</a></li>
+        <li><li><i class="bi bi-chevron-right separator"></i></li></li>
         <li class="active" >Data Akun</li>
     </ol>
 </nav>

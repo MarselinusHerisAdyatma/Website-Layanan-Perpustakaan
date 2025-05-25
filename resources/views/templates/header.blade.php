@@ -49,29 +49,29 @@
                     </li>
                     <hr class="w-100 my-2 border-light">
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect" 
-                        href="">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('superadmin.data_pengunjung') ? 'active-menu' : '' }}" 
+                        href="{{ route('superadmin.data_pengunjung') }}">
                         <i class="bi bi-people-fill me-2"></i> Data Pengunjung
                         </a>
                     </li>
                     <hr class="w-100 my-2 border-light">
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect"
-                        href="">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('superadmin.data_peminjaman') ? 'active-menu' : '' }}"
+                        href="{{ route('superadmin.data_peminjaman') }}">
                         <i class="bi bi-book-fill me-2"></i> Data Peminjaman Buku
                         </a>
                     </li>
                     <hr class="w-100 my-2 border-light">
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect" 
-                        href="">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('superadmin.data_akun') ? 'active-menu' : '' }}" 
+                        href="{{ route('superadmin.data_akun') }}">
                         <i class="bi bi-person-lines-fill me-2"></i> Data Akun
                         </a>
                     </li>
                     <hr class="w-100 my-2 border-light">
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect"
-                        href="">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('superadmin.data_koleksi') ? 'active-menu' : '' }}"
+                        href="{{ route('superadmin.data_koleksi') }}">
                             <i class="bi bi-collection-fill me-2"></i> Jumlah Koleksi
                         </a>
                     </li>
@@ -151,8 +151,16 @@
                     </li>
                     <hr class="w-100 my-2 border-light">
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center hover-effect" href="">
-                            <i class="bi bi-kanban me-2"></i> Proyek
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('user.data_pengunjung') ? 'active-menu' : '' }}" 
+                        href="{{ route('user.data_pengunjung') }}">
+                        <i class="bi bi-people-fill me-2"></i> Data Pengunjung
+                        </a>
+                    </li>
+                    <hr class="w-100 my-2 border-light">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center hover-effect {{ request()->routeIs('user.data_peminjaman') ? 'active-menu' : '' }}"
+                        href="{{ route('user.data_peminjaman') }}">
+                        <i class="bi bi-book-fill me-2"></i> Data Peminjaman Buku
                         </a>
                     </li>
                     <hr class="w-100 my-2 border-light">

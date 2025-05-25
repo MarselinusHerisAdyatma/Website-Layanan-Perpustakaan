@@ -5,8 +5,8 @@
 <!-- Breadcrumb -->
 <nav class="breadcrumb-container" aria-label="breadcrumb">
     <ol class="breadcrumb-custom">
-        <li><i class="bi bi-house-door-fill"></i></li>
-        <li>/</li>
+        <li><a href="{{ route('landing_page') }}"><i class="bi bi-house-door-fill"></i></a></li>
+        <li><li><i class="bi bi-chevron-right separator"></i></li></li>
         <li class="active" >Dashboard</li>
     </ol>
 </nav>

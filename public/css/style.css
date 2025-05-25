@@ -81,6 +81,23 @@
     color: #6c757d;
 }
 
+.breadcrumb-custom a {
+    text-decoration: none;      /* hilangkan garis bawah */
+    color: #333 !important;     /* samakan dengan warna teks default */
+}
+
+.breadcrumb-custom a:hover {
+    text-decoration: underline; /* opsional jika ingin ada efek hover */
+    color: #007bff !important;  /* warna saat hover, opsional */
+}
+
+.breadcrumb-custom .separator {
+    font-size: 14px;
+    color: #999;
+}
+
+
+
 /* Dashboard */
 .dashboard-container {
     background-color: #f2f6fc;

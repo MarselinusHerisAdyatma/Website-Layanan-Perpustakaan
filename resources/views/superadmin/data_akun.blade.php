@@ -6,9 +6,9 @@
     <ol class="breadcrumb-custom">
         <li><a href="{{ route('landing_page') }}"><i class="bi bi-house-door-fill"></i></a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
-        <li><a href="{{ route('admin.index') }}">Dashboard</a></li>
+        <li><a href="{{ route('superadmin.index') }}">Dashboard</a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
-        <li class="active" >Data Pengunjung</li>
+        <li class="active" >Data Akun</li>
     </ol>
 </nav>
 
@@ -17,15 +17,16 @@
     <!-- JUDUL -->
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5 class="table-heading">
-        <i class="bi bi-people-fill me-2"></i> Tabel Data Pengunjung
+        <i class="bi bi-person-badge-fill me-2"></i> Tabel Data Akun
       </h5>
 
       <!-- Filter Dropdown dan Search -->
       <div class="d-flex gap-2">
         <select class="form-select">
-          <option value="">Semua Tahun</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
+          <option value="">Semua Role</option>
+          <option value="admin">Super Admin</option>
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
         </select>
         <input type="text" class="form-control" placeholder="Cari...">
       </div>
@@ -45,24 +46,22 @@
     </div>
 
     <!-- TABEL -->
-    <table class="table table-bordered table-striped align-middle text-center table-pengunjung">
+    <table class="table table-bordered table-striped align-middle text-center table-akun">
       <thead>
         <tr>
           <th>No</th>
           <th>Nama</th>
-          <th>Asal</th>
-          <th>Tanggal</th>
-          <th>Waktu</th>
+          <th>Email</th>
+          <th>Role</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td>Aldo</td>
-          <td>Fakultas Teknik</td>
-          <td>2024-05-24</td>
-          <td>08:45</td>
+          <td>Fajar Prasetya</td>
+          <td>fajar@example.com</td>
+          <td><span class="badge bg-primary">Admin</span></td>
           <td>
             <button class="btn btn-outline-primary btn-sm" title="Edit">
               <i class="bi bi-pencil-square"></i>
@@ -72,7 +71,7 @@
             </button>
           </td>
         </tr>
-        <!-- Tambah data lainnya -->
+        <!-- Tambah data akun lainnya -->
       </tbody>
     </table>
 
@@ -85,7 +84,5 @@
     </nav>
   </div>
 </div>
-
-
 
 @endsection
