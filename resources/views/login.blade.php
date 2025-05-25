@@ -113,6 +113,29 @@
     </style>
 </head>
 <body>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055">
+  @if(session('success'))
+    <div class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ session('success') }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  @endif
+
+  @if(session('error'))
+    <div class="toast align-items-center text-white bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ session('error') }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  @endif
+</div>
 
     <!-- Header -->
     <div class="header">
@@ -129,9 +152,9 @@
         <div class="content">
             <p>Silakan masukkan username dan password Anda untuk login ke sistem layanan perpustakaan.</p>
 
-            @if(session('error'))
+            <!-- @if(session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
-            @endif
+            @endif -->
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
@@ -166,6 +189,13 @@
             <a href="#" class="me-2 text-white"><i class="bi bi-youtube"></i></a>
         </div>
     </footer>
+
+<script>
+    const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+    const toastList = toastElList.map(function (toastEl) {
+        return new bootstrap.Toast(toastEl).show();
+    });
+</script>
 
 </body>
 

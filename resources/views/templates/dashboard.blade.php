@@ -10,11 +10,14 @@
 
 </head>
 <body>
+ <div class="page-container d-flex flex-column min-vh-100">
     {{-- template header disini! --}}
     @include('templates.header')
     {{-- extend content disini! --}}
     @yield('content')
-    
+    {{-- template footer disini! --}}
+    @include('templates.footer')
+</div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </html>

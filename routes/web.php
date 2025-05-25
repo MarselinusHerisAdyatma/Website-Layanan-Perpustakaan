@@ -9,6 +9,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserManagementController;
 
 Route::get('/', function () {
     return view('landing_page');
@@ -29,10 +30,17 @@ Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->nam
     Route::get('/', [SuperAdminController::class, 'index'])->name('index');
     Route::get('/data-pengunjung', [SuperAdminController::class, 'dataPengunjung'])->name('data_pengunjung');
     Route::get('/data-peminjaman', [SuperAdminController::class, 'dataPeminjaman'])->name('data_peminjaman');
-    Route::get('/data-akun', [SuperAdminController::class, 'dataAkun'])->name('data_akun');
     Route::get('/data-koleksi', [SuperAdminController::class, 'dataKoleksi'])->name('data_koleksi');
     Route::get('/edit-koleksi', [SuperAdminController::class, 'editKoleksi'])->name('edit_koleksi');
-    });
+
+    // Akun dikelola oleh UserManagementController khusus Super Admin
+    Route::get('/data-akun', [UserManagementController::class, 'index'])->name('data_akun');
+    Route::get('/data-akun/create', [UserManagementController::class, 'create'])->name('data_akun.create');
+    Route::post('/data-akun', [UserManagementController::class, 'store'])->name('data_akun.store');
+    Route::get('/data-akun/{id}/edit', [UserManagementController::class, 'edit'])->name('data_akun.edit');
+    Route::put('/data-akun/{id}', [UserManagementController::class, 'update'])->name('data_akun.update');
+    Route::delete('/data-akun/{id}', [UserManagementController::class, 'destroy'])->name('data_akun.destroy');
+});
     
 // ADMIN
 Route::prefix('dashboard/admin')->middleware(['auth', 'LoginCheck:2'])->name('admin.')->group(function () {

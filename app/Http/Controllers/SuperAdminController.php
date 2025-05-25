@@ -21,11 +21,6 @@ class SuperAdminController extends Controller
         return view('superadmin.data_peminjaman');
     }
 
-    public function dataAkun()
-    {
-        return view('superadmin.data_akun');
-    }
-
     public function dataKoleksi()
     {
         return view('superadmin.data_koleksi');
