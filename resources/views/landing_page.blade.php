@@ -142,7 +142,7 @@
                 </div>
                 <div class="col-md-3 mb-3">
                     <i class="bi bi-qr-code-scan display-4 text-primary"></i>
-                    <h6 class="mt-2">SKRD</h6>
+                    <h6 class="mt-2">SKBP</h6>
                 </div>
                 <div class="col-md-3 mb-3">
                     <i class="bi bi-hdd-network display-4 text-primary"></i>
@@ -167,7 +167,7 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <h4 class="text-primary">1.110</h4>
-                    <p>KKI (Karya Ilmiah)</p>
+                    <p>KKI (Koleksi Karya Ilmiah)</p>
                 </div>
             </div>
             <div class="row">
