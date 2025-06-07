@@ -40,9 +40,7 @@
       <button class="btn btn-outline-primary" title="Refresh">
         <i class="bi bi-arrow-clockwise"></i>
       </button>
-      <button class="btn btn-outline-danger" title="Hapus Semua">
-        <i class="bi bi-trash-fill"></i>
-      </button>
+      
     </div>
 
     <!-- TABEL -->
@@ -53,7 +51,7 @@
           <th>Nama</th>
           <th>Email</th>
           <th>Role</th>
-          <th>Aksi</th>
+
         </tr>
       </thead>
       <tbody>
@@ -62,14 +60,7 @@
           <td>Fajar Prasetya</td>
           <td>fajar@example.com</td>
           <td><span class="badge bg-primary">Admin</span></td>
-          <td>
-            <button class="btn btn-outline-primary btn-sm" title="Edit">
-              <i class="bi bi-pencil-square"></i>
             </button>
-            <button class="btn btn-outline-danger btn-sm" title="Hapus">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </td>
         </tr>
         <!-- Tambah data akun lainnya -->
       </tbody>

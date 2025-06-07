@@ -128,13 +128,13 @@
                 </div>
                 <div class="col-md-3 mb-3">
                     <i class="bi bi-check-circle display-4 text-primary"></i>
-                    <h6 class="mt-2">Verifikasi</h6>
+                    <h6 class="mt-2">Verifikasi Karya Ilmiah</h6>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3 mb-3">
                     <i class="bi bi-person-plus display-4 text-primary"></i>
-                    <h6 class="mt-2">Pendaftaran</h6>
+                    <h6 class="mt-2">Pendaftaran Anggota</h6>
                 </div>
                 <div class="col-md-3 mb-3">
                     <i class="bi bi-journal-code display-4 text-primary"></i>
