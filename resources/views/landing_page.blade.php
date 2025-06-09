@@ -119,33 +119,33 @@
                     <h6 class="mt-2">OPAC</h6></a>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <a href="#" class="text-black"><i class="bi bi-globe display-4 text-primary"></i>
+                    <a href="https://library.unila.ac.id/e-journal/" class="text-black"><i class="bi bi-globe display-4 text-primary"></i>
                     <h6 class="mt-2">E-JOURNAL</h6></a>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <a href="#" class="text-black"><i class="bi bi-book display-4 text-primary"></i>
+                    <a href="https://library.unila.ac.id/e-book/" class="text-black"><i class="bi bi-book display-4 text-primary"></i>
                     <h6 class="mt-2">E-BOOK</h6></a>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <a href="#" class="text-black"><i class="bi bi-check-circle display-4 text-primary"></i>
+                    <a href="https://library.unila.ac.id/about/layanan-verifikasi-karya-ilmiah-mahasiswa/" class="text-black"><i class="bi bi-check-circle display-4 text-primary"></i>
                     <h6 class="mt-2">Verifikasi Karya Ilmiah</h6></a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3 mb-3">
-                    <a href="#" class="text-black"><i class="bi bi-person-plus display-4 text-primary"></i>
+                    <a href="https://library.unila.ac.id/pendaftaran-kartu-anggota-perpustakaan/" class="text-black"><i class="bi bi-person-plus display-4 text-primary"></i>
                     <h6 class="mt-2">Pendaftaran Anggota</h6></a>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <a href="#" class="text-black"><i class="bi bi-journal-code display-4 text-primary"></i>
+                    <a href="https://library.unila.ac.id/layanan-kki/" class="text-black"><i class="bi bi-journal-code display-4 text-primary"></i>
                     <h6 class="mt-2">KKI</h6></a>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <a href="#" class="text-black"><i class="bi bi-qr-code-scan display-4 text-primary"></i>
+                    <a href="https://library.unila.ac.id/about/surat-keterangan-bebas-perpustakaan-skbp/" class="text-black"><i class="bi bi-qr-code-scan display-4 text-primary"></i>
                     <h6 class="mt-2">SKBP</h6></a>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <a href="#" class="text-black"><i class="bi bi-hdd-network display-4 text-primary"></i>
+                    <a href="https://library.unila.ac.id/digital-library-university-of-lampung/" class="text-black"><i class="bi bi-hdd-network display-4 text-primary"></i>
                     <h6 class="mt-2">DIGILIB</h6></a>
                 </div>
             </div>
