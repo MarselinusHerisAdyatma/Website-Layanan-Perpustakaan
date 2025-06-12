@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -21,9 +24,21 @@ class AdminController extends Controller
         return view('admin.data_peminjaman');
     }
 
-    public function dataAkun()
+    public function dataAkun(Request $request)
     {
-        return view('admin.data_akun');
+        $query = User::with('role');
+
+        if ($request->role) {
+            $query->where('role_id', $request->role);
+        }
+
+        if ($request->search) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $users = $query->paginate(10);
+
+        return view('admin.data_akun', compact('users')); // View khusus admin
     }
 
     public function dataKoleksi()

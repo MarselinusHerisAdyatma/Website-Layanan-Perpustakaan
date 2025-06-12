@@ -39,9 +39,6 @@
       <button class="btn btn-outline-primary" title="Refresh">
         <i class="bi bi-arrow-clockwise"></i>
       </button>
-      <button class="btn btn-outline-danger" title="Hapus Semua">
-        <i class="bi bi-trash-fill"></i>
-      </button>
     </div>
 
     <!-- TABEL -->
@@ -53,7 +50,6 @@
           <th>Asal</th>
           <th>Tanggal</th>
           <th>Waktu</th>
-          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -63,14 +59,6 @@
           <td>Fakultas Teknik</td>
           <td>2024-05-24</td>
           <td>08:45</td>
-          <td>
-            <button class="btn btn-outline-primary btn-sm" title="Edit">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-outline-danger btn-sm" title="Hapus">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </td>
         </tr>
         <!-- Tambah data lainnya -->
       </tbody>

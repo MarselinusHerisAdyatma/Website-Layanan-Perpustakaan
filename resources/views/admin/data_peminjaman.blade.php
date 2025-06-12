@@ -39,9 +39,6 @@
       <button class="btn btn-outline-primary" title="Refresh">
         <i class="bi bi-arrow-clockwise"></i>
       </button>
-      <button class="btn btn-outline-danger" title="Hapus Semua">
-        <i class="bi bi-trash-fill"></i>
-      </button>
     </div>
 
     <!-- TABEL -->
@@ -54,7 +51,6 @@
           <th>Tanggal Pinjam</th>
           <th>Tanggal Kembali</th>
           <th>Status</th>
-          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -65,14 +61,6 @@
           <td>2024-05-20</td>
           <td>2024-05-25</td>
           <td><span class="badge bg-success">Dikembalikan</span></td>
-          <td>
-            <button class="btn btn-outline-primary btn-sm" title="Edit">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-outline-danger btn-sm" title="Hapus">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </td>
         </tr>
         <!-- Tambah data lainnya -->
       </tbody>

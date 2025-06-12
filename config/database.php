@@ -56,6 +56,21 @@ return [
             'strict' => true,
             'engine' => null,
         ],
+        
+        'mysql_xampp' => [
+            'driver' => 'mysql',
+            'host' => env('DB_XAMPP_HOST', '127.0.0.1'),
+            'port' => env('DB_XAMPP_PORT', '3306'),
+            'database' => env('DB_XAMPP_DATABASE', 'forge'),
+            'username' => env('DB_XAMPP_USERNAME', 'forge'),
+            'password' => env('DB_XAMPP_PASSWORD', ''),
+            'unix_socket' => env('DB_XAMPP_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

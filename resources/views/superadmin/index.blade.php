@@ -7,9 +7,21 @@
     <ol class="breadcrumb-custom">
         <li><a href="{{ route('landing_page') }}"><i class="bi bi-house-door-fill"></i></a></li>
         <li><li><i class="bi bi-chevron-right separator"></i></li></li>
-        <li class="active" >Dashboard</li>
+        <li class="active">Dashboard</li>
     </ol>
 </nav>
+
+<!-- Dropdown Tahun -->
+<div class="dropdown-container">
+    <label for="tahun">Tahun:</label>
+    <select id="tahun" onchange="updateDashboard()">
+        <option value="all" {{ $selectedYear === 'all' ? 'selected' : '' }}>Semua Tahun</option>
+        @foreach ($tahunList as $tahun)
+            <option value="{{ $tahun }}" {{ $tahun == $selectedYear ? 'selected' : '' }}>{{ $tahun }}</option>
+        @endforeach
+    </select>
+</div>
+
 
 <!-- DASHBOARD CARD SECTION -->
 <div class="dashboard-container">
@@ -17,8 +29,8 @@
     <div class="dropdown-container">
         <label for="filter">Tampilkan berdasarkan:</label>
         <select id="filter" onchange="updateDashboard()">
-            <option value="fakultas" selected>Fakultas</option>
-            <option value="prodi">Program Studi</option>
+            <option value="fakultas" {{ $filter == 'fakultas' ? 'selected' : '' }}>Fakultas</option>
+            <option value="prodi" {{ $filter == 'prodi' ? 'selected' : '' }}>Program Studi</option>
         </select>
     </div>
 
@@ -30,7 +42,7 @@
         </div>
         <div class="card-box card-green">
             <h5>Total Peminjam Buku</h5>
-            <div class="value" id="totalPeminjam">70</div>
+            <div class="value" id="totalPeminjam">{{ $totalPeminjam }}</div>
         </div>
     </div>
 
@@ -43,19 +55,19 @@
         </div>
         <div class="card-box card-purple">
             <h5>Peminjam Terbanyak</h5>
-            <div class="value" id="peminjamTerbanyak">67</div>
-            <div class="desc" id="peminjamLabel">Prodi Informatika</div>
+            <div class="value" id="peminjamTerbanyak">{{ $peminjamTerbanyak->jumlah ?? 0 }}</div>
+            <div class="desc" id="peminjamLabel">{{ $peminjamTerbanyak->{$filter} ?? '-' }}</div>
         </div>
     </div>
 
     <!-- Chart -->
     <div class="row-chart">
         <div class="chart-box chart-wrapper">
-            <div class="chart-title" id="chartPengunjungLabel">Pengunjung Fakultas Terbanyak</div>
+            <div class="chart-title" id="chartPengunjungLabel">Pengunjung {{ ucfirst($filter) }} Terbanyak</div>
             <canvas id="pengunjungChart"></canvas>
         </div>
         <div class="chart-box chart-wrapper">
-            <div class="chart-title" id="chartPeminjamLabel">Peminjam Buku Fakultas Terbanyak</div>
+            <div class="chart-title" id="chartPeminjamLabel">Peminjam Buku {{ ucfirst($filter) }} Terbanyak</div>
             <canvas id="peminjamChart"></canvas>
         </div>
     </div>
@@ -66,14 +78,20 @@
     const ctx1 = document.getElementById('pengunjungChart').getContext('2d');
     const ctx2 = document.getElementById('peminjamChart').getContext('2d');
 
+    const dataPeminjamChart = @json(array_values($peminjamChart->toArray()));
+    const labelPeminjamChart = @json(array_keys($peminjamChart->toArray()));
+
+    const dataPeminjamBulan = @json(array_values($peminjamPerBulan->toArray()));
+    const bulanLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+
     let pengunjungChart = new Chart(ctx1, {
         type: 'bar',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei'],
+            labels: labelPeminjamChart,
             datasets: [{
-                label: '2025',
+                label: 'Total Peminjam per Tahun',
                 backgroundColor: '#7e3af2',
-                data: [60, 80, 70, 75, 85]
+                data: dataPeminjamChart
             }]
         }
     });
@@ -81,12 +99,12 @@
     let peminjamChart = new Chart(ctx2, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei'],
+            labels: bulanLabels.slice(0, dataPeminjamBulan.length),
             datasets: [{
-                label: '2025',
+                label: '{{ $selectedYear === "all" ? "Semua Tahun" : $selectedYear }}',
                 borderColor: '#1e88e5',
                 backgroundColor: 'rgba(30, 136, 229, 0.3)',
-                data: [45, 85, 30, 55, 67],
+                data: dataPeminjamBulan,
                 fill: true,
                 tension: 0.3,
                 pointRadius: 4
@@ -95,37 +113,11 @@
     });
 
     function updateDashboard() {
-        const selected = document.getElementById('filter').value;
-
-        if (selected === 'fakultas') {
-            document.getElementById('pengunjungTerbanyak').innerText = '80';
-            document.getElementById('pengunjungLabel').innerText = 'Fakultas Teknik';
-
-            document.getElementById('peminjamTerbanyak').innerText = '72';
-            document.getElementById('peminjamLabel').innerText = 'Fakultas Ilmu Sosial';
-
-            document.getElementById('chartPengunjungLabel').innerText = 'Pengunjung Fakultas Terbanyak';
-            document.getElementById('chartPeminjamLabel').innerText = 'Peminjam Buku Fakultas Terbanyak';
-
-            pengunjungChart.data.datasets[0].data = [60, 75, 70, 80, 78];
-            peminjamChart.data.datasets[0].data = [50, 60, 45, 75, 72];
-        } else {
-            document.getElementById('pengunjungTerbanyak').innerText = '65';
-            document.getElementById('pengunjungLabel').innerText = 'Prodi Teknik Mesin';
-
-            document.getElementById('peminjamTerbanyak').innerText = '67';
-            document.getElementById('peminjamLabel').innerText = 'Prodi Informatika';
-
-            document.getElementById('chartPengunjungLabel').innerText = 'Pengunjung Prodi Terbanyak';
-            document.getElementById('chartPeminjamLabel').innerText = 'Peminjam Buku Prodi Terbanyak';
-
-            pengunjungChart.data.datasets[0].data = [55, 60, 65, 70, 60];
-            peminjamChart.data.datasets[0].data = [48, 65, 50, 67, 64];
-        }
-
-        pengunjungChart.update();
-        peminjamChart.update();
+        const tahun = document.getElementById('tahun').value;
+        const filter = document.getElementById('filter').value;
+        window.location.href = `?tahun=${tahun}&filter=${filter}`;
     }
+
 </script>
 
 @endsection

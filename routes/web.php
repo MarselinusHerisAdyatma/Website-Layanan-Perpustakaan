@@ -40,6 +40,7 @@ Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->nam
     Route::get('/data-akun/{id}/edit', [UserManagementController::class, 'edit'])->name('data_akun.edit');
     Route::put('/data-akun/{id}', [UserManagementController::class, 'update'])->name('data_akun.update');
     Route::delete('/data-akun/{id}', [UserManagementController::class, 'destroy'])->name('data_akun.destroy');
+
 });
     
 // ADMIN
@@ -50,6 +51,7 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'LoginCheck:2'])->name('ad
     Route::get('/data-akun', [AdminController::class, 'dataAkun'])->name('data_akun');
     Route::get('/data-koleksi', [AdminController::class, 'dataKoleksi'])->name('data_koleksi');
     Route::get('/edit-koleksi', [AdminController::class, 'editKoleksi'])->name('edit_koleksi');
+
 });
 
 // USER
@@ -60,3 +62,11 @@ Route::prefix('dashboard/user')->middleware(['auth', 'LoginCheck:3'])->name('use
     });
 
 
+Route::get('/cek-db', function () {
+    try {
+        DB::connection('mysql_xampp')->getPdo();
+        return 'Koneksi ke mysql_xampp berhasil!';
+    } catch (\Exception $e) {
+        return 'Gagal terkoneksi: ' . $e->getMessage();
+    }
+});

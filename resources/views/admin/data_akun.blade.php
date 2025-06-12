@@ -21,15 +21,15 @@
       </h5>
 
       <!-- Filter Dropdown dan Search -->
-      <div class="d-flex gap-2">
-        <select class="form-select">
+      <form method="GET" class="d-flex gap-2">
+        <select name="role" class="form-select" onchange="this.form.submit()">
           <option value="">Semua Role</option>
-          <option value="admin">Super Admin</option>
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
+          <option value="1" {{ request('role') == '1' ? 'selected' : '' }}>Super Admin</option>
+          <option value="2" {{ request('role') == '2' ? 'selected' : '' }}>Admin</option>
+          <option value="3" {{ request('role') == '3' ? 'selected' : '' }}>User</option>
         </select>
-        <input type="text" class="form-control" placeholder="Cari...">
-      </div>
+        <input type="text" name="search" class="form-control" placeholder="Cari..." value="{{ request('search') }}">
+      </form>
     </div>
 
     <!-- TOMBOL AKSI -->
@@ -37,9 +37,9 @@
       <button class="btn btn-outline-success" title="Download PDF">
         <i class="bi bi-file-earmark-pdf-fill"></i>
       </button>
-      <button class="btn btn-outline-primary" title="Refresh">
+      <a href="{{ route('admin.data_akun') }}" class="btn btn-outline-primary" title="Refresh">
         <i class="bi bi-arrow-clockwise"></i>
-      </button>
+      </a>
       
     </div>
 
@@ -51,29 +51,46 @@
           <th>Nama</th>
           <th>Email</th>
           <th>Role</th>
-
         </tr>
       </thead>
       <tbody>
+        @forelse ($users as $index => $user)
         <tr>
-          <td>1</td>
-          <td>Fajar Prasetya</td>
-          <td>fajar@example.com</td>
-          <td><span class="badge bg-primary">Admin</span></td>
-            </button>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ $user->name }}</td>
+          <td>{{ $user->username }}</td>
+          <td>
+          @if ($user->role->id == 1)
+            <span class="badge bg-danger">Super Admin</span>
+          @elseif ($user->role->id == 2)
+            <span class="badge bg-primary">Admin</span>
+          @else
+            <span class="badge bg-success">User</span>
+          @endif
+          </td>
         </tr>
-        <!-- Tambah data akun lainnya -->
+        @empty
+        <tr>
+          <td colspan="5">Tidak ada data akun.</td>
+        </tr>
+        @endforelse
       </tbody>
     </table>
 
     <!-- PAGINATION -->
     <nav class="d-flex justify-content-center mt-4">
-      <ul class="pagination pagination-lg">
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-      </ul>
+      {{ $users->appends(request()->query())->links('pagination::bootstrap-5') }}
     </nav>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+    toastElList.forEach(function (toastEl) {
+      new bootstrap.Toast(toastEl, { delay: 4000 }).show();
+    });
+  });
+</script>
 
 @endsection

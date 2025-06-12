@@ -22,26 +22,26 @@
 
       <!-- Filter Dropdown dan Search -->
       <div class="d-flex gap-2">
-        <select class="form-select">
-          <option value="">Semua Tahun</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-        </select>
-        <input type="text" class="form-control" placeholder="Cari...">
+        <form action="{{ route('superadmin.data_peminjaman') }}" method="GET" class="d-flex gap-2">
+          <select name="tahun" class="form-select" onchange="this.form.submit()">
+            <option value="">Semua Tahun</option>
+          @foreach ($tahunList as $tahun)
+            <option value="{{ $tahun }}">{{ $tahun }}</option>
+          @endforeach
+          </select>
+          <input type="text" name="search" class="form-control" placeholder="Cari..." value="{{ request('search') }}">
+        </form>
       </div>
     </div>
 
     <!-- TOMBOL AKSI -->
     <div class="d-flex justify-content-end gap-2 mb-3">
-      <button class="btn btn-outline-success" title="Download PDF">
+      <a href="#" class="btn btn-outline-success" title="Download PDF">
         <i class="bi bi-file-earmark-pdf-fill"></i>
-      </button>
-      <button class="btn btn-outline-primary" title="Refresh">
+      </a>
+      <a href="{{ route('superadmin.data_peminjaman') }}" class="btn btn-outline-primary" title="Refresh">
         <i class="bi bi-arrow-clockwise"></i>
-      </button>
-      <button class="btn btn-outline-danger" title="Hapus Semua">
-        <i class="bi bi-trash-fill"></i>
-      </button>
+      </a>
     </div>
 
     <!-- TABEL -->
@@ -54,35 +54,36 @@
           <th>Tanggal Pinjam</th>
           <th>Tanggal Kembali</th>
           <th>Status</th>
-          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
+        @forelse ($peminjaman as $index => $data)
         <tr>
-          <td>1</td>
-          <td>Ayu Lestari</td>
-          <td>Pemrograman Laravel</td>
-          <td>2024-05-20</td>
-          <td>2024-05-25</td>
-          <td><span class="badge bg-success">Dikembalikan</span></td>
+          <td>{{ $peminjaman->firstItem() + $index }}</td>
+          <td>{{ $data->nama_peminjam }}</td>
+          <td>{{ $data->judul_buku }}</td>
+          <td>{{ \Carbon\Carbon::parse($data->tanggal_pinjam)->format('d M Y') }}</td>
+          <td>{{ $data->tanggal_kembali ? \Carbon\Carbon::parse($data->tanggal_kembali)->format('d M Y') : '-' }}</td>
           <td>
-            <button class="btn btn-outline-primary btn-sm" title="Edit">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-outline-danger btn-sm" title="Hapus">
-              <i class="bi bi-trash-fill"></i>
-            </button>
+            @if ($data->tanggal_kembali)
+              <span class="badge bg-success">Dikembalikan</span>
+            @else
+              <span class="badge bg-warning text-dark">Belum Kembali</span>
+            @endif
           </td>
         </tr>
-        <!-- Tambah data lainnya -->
+        @empty
+        <tr>
+          <td colspan="6">Tidak ada data.</td>
+        </tr>
+        @endforelse
       </tbody>
     </table>
 
     <!-- PAGINATION -->
     <nav class="d-flex justify-content-center mt-4">
-      <ul class="pagination pagination-lg">
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <ul class="pagination">
+        {{ $peminjaman->withQueryString()->links('pagination::bootstrap-5') }}
       </ul>
     </nav>
   </div>
