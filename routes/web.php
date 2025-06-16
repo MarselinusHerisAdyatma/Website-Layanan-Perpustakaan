@@ -11,6 +11,16 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserManagementController;
 
+
+Route::get('/', function () {
+    try {
+        \DB::connection()->getPdo();
+        return 'Database Connected!';
+    } catch (\Exception $e) {
+        return 'Connection Failed: ' . $e->getMessage();
+    }
+});
+
 Route::get('/', function () {
     return view('landing_page');
 });
