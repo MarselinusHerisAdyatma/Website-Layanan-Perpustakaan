@@ -14,13 +14,16 @@
 
 <div class="koleksi-wrapper py-5">
     <div class="container">
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
         <div class="koleksi-card shadow-lg mx-auto">
             <div class="koleksi-header d-flex justify-content-between align-items-center">
                 <div>
                     <h1 class="koleksi-title mb-1">📚 Informasi Jumlah Koleksi</h1>
                     <p class="koleksi-subtitle">Statistik koleksi perpustakaan terkini</p>
                 </div>
-                <!-- Tombol edit -->
                 <a href="{{ route('superadmin.edit_koleksi') }}" class="btn-edit-icon" title="Edit Koleksi">✏️</a>
             </div>
 
@@ -37,22 +40,32 @@
                         <tr>
                             <td class="koleksi-label">📖 Buku</td>
                             <td>:</td>
-                            <td><span class="koleksi-value">1120</span></td>
+                            <td><span class="koleksi-value">{{ $koleksi->buku ?? '-' }}</span></td>
                         </tr>
                         <tr>
                             <td class="koleksi-label">📘 Jurnal</td>
                             <td>:</td>
-                            <td><span class="koleksi-value">1115</span></td>
+                            <td><span class="koleksi-value">{{ $koleksi->jurnal ?? '-' }}</span></td>
                         </tr>
                         <tr>
                             <td class="koleksi-label">📝 Karya Ilmiah</td>
                             <td>:</td>
-                            <td><span class="koleksi-value">1110</span></td>
+                            <td><span class="koleksi-value">{{ $koleksi->karya_ilmiah ?? '-' }}</span></td>
+                        </tr>
+                        <tr>
+                            <td class="koleksi-label">👥 Anggota Aktif</td>
+                            <td>:</td>
+                            <td><span class="koleksi-value">{{ $koleksi->anggota_aktif ?? '-' }}</span></td>
+                        </tr>
+                        <tr>
+                            <td class="koleksi-label">📚 e-Book & e-Journal</td>
+                            <td>:</td>
+                            <td><span class="koleksi-value">{{ $koleksi->ebook_ejournal ?? '-' }}</span></td>
                         </tr>
                         <tr class="koleksi-total-row">
                             <td class="koleksi-label">🧾 Total Koleksi</td>
                             <td>:</td>
-                            <td><span class="koleksi-total">3345</span></td>
+                            <td><span class="koleksi-total">{{ $koleksi->total_koleksi ?? '-' }}</span></td>
                         </tr>
                     </tbody>
                 </table>

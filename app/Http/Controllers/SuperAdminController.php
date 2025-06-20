@@ -6,6 +6,7 @@ use App\Models\PeminjamanBuku;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Koleksi;
 
 class SuperAdminController extends Controller
 {
@@ -76,12 +77,36 @@ class SuperAdminController extends Controller
 
     public function dataKoleksi()
     {
-        return view('superadmin.data_koleksi');
-    }    
-    
+        $koleksi = Koleksi::first();
+        return view('superadmin.data_koleksi', compact('koleksi'));
+    }
+
     public function editKoleksi()
     {
-        return view('superadmin.edit_koleksi');
+        $koleksi = Koleksi::first();
+        return view('superadmin.edit_koleksi', compact('koleksi'));
+    }
+
+    public function updateKoleksi(Request $request)
+    {
+        $validated = $request->validate([
+            'buku' => 'required|integer',
+            'jurnal' => 'required|integer',
+            'karya_ilmiah' => 'required|integer',
+            'anggota_aktif' => 'nullable|integer',
+            'ebook_ejournal' => 'nullable|integer',
+            'total_koleksi' => 'required|integer',
+        ]);
+
+        $koleksi = Koleksi::first();
+
+        if ($koleksi) {
+            $koleksi->update($validated);
+        } else {
+            Koleksi::create($validated);
+        }
+
+        return redirect()->route('superadmin.data_koleksi')->with('success', 'Data koleksi berhasil diperbarui.');
     }
 
 }

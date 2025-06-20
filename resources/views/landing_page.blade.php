@@ -49,6 +49,41 @@
             margin-bottom: 30px;
         }
 
+        .card-layanan {
+            background-color: #150fa6;
+            border-radius: 16px;
+            padding: 30px 20px;
+            color: white;
+            text-align: center;
+            height: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            text-decoration: none !important;
+        }
+
+        .card-layanan:hover {
+            background-color: #0e0985;
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-layanan i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-layanan h6 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        .section-layanan a {
+            text-decoration: none !important;
+        }
+
         .footer {
             background-color: #150fa6;
             color: white;
@@ -109,44 +144,59 @@
             <span class="carousel-control-next-icon"></span>
         </button>
     </div>
+
     <!-- LAYANAN UMUM -->
     <div class="section-layanan text-center bg-white py-5">
         <h3 style="color:#150fa6;">Layanan Umum</h3>
         <div class="container mt-4">
-            <div class="row mb-4">
-                <div class="col-md-3 mb-3">
-                    <a href="http://opac.unila.ac.id/" class="text-black"><i class="bi bi-book-half display-4 text-primary"></i>
-                    <h6 class="mt-2">OPAC</h6></a>
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <a href="http://opac.unila.ac.id/" class="card-layanan d-block">
+                        <i class="bi bi-book-half"></i>
+                        <h6>OPAC</h6>
+                    </a>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="https://library.unila.ac.id/e-journal/" class="text-black"><i class="bi bi-globe display-4 text-primary"></i>
-                    <h6 class="mt-2">E-JOURNAL</h6></a>
+                <div class="col-md-3 col-sm-6">
+                    <a href="https://library.unila.ac.id/e-journal/" class="card-layanan d-block">
+                        <i class="bi bi-globe"></i>
+                        <h6>E-JOURNAL</h6>
+                    </a>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="https://library.unila.ac.id/e-book/" class="text-black"><i class="bi bi-book display-4 text-primary"></i>
-                    <h6 class="mt-2">E-BOOK</h6></a>
+                <div class="col-md-3 col-sm-6">
+                    <a href="https://library.unila.ac.id/e-book/" class="card-layanan d-block">
+                        <i class="bi bi-book"></i>
+                        <h6>E-BOOK</h6>
+                    </a>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="https://library.unila.ac.id/about/layanan-verifikasi-karya-ilmiah-mahasiswa/" class="text-black"><i class="bi bi-check-circle display-4 text-primary"></i>
-                    <h6 class="mt-2">Verifikasi Karya Ilmiah</h6></a>
+                <div class="col-md-3 col-sm-6">
+                    <a href="https://library.unila.ac.id/about/layanan-verifikasi-karya-ilmiah-mahasiswa/" class="card-layanan d-block">
+                        <i class="bi bi-check-circle"></i>
+                        <h6>Verifikasi Karya Ilmiah</h6>
+                    </a>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 mb-3">
-                    <a href="https://library.unila.ac.id/pendaftaran-kartu-anggota-perpustakaan/" class="text-black"><i class="bi bi-person-plus display-4 text-primary"></i>
-                    <h6 class="mt-2">Pendaftaran Anggota</h6></a>
+                <div class="col-md-3 col-sm-6">
+                    <a href="https://library.unila.ac.id/pendaftaran-kartu-anggota-perpustakaan/" class="card-layanan d-block">
+                        <i class="bi bi-person-plus"></i>
+                        <h6>Pendaftaran Anggota</h6>
+                    </a>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="https://library.unila.ac.id/layanan-kki/" class="text-black"><i class="bi bi-journal-code display-4 text-primary"></i>
-                    <h6 class="mt-2">KKI</h6></a>
+                <div class="col-md-3 col-sm-6">
+                    <a href="https://library.unila.ac.id/layanan-kki/" class="card-layanan d-block">
+                        <i class="bi bi-journal-code"></i>
+                        <h6>KKI</h6>
+                    </a>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="https://library.unila.ac.id/about/surat-keterangan-bebas-perpustakaan-skbp/" class="text-black"><i class="bi bi-qr-code-scan display-4 text-primary"></i>
-                    <h6 class="mt-2">SKBP</h6></a>
+                <div class="col-md-3 col-sm-6">
+                    <a href="https://library.unila.ac.id/about/surat-keterangan-bebas-perpustakaan-skbp/" class="card-layanan d-block">
+                        <i class="bi bi-qr-code-scan"></i>
+                        <h6>SKBP</h6>
+                    </a>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="https://library.unila.ac.id/digital-library-university-of-lampung/" class="text-black"><i class="bi bi-hdd-network display-4 text-primary"></i>
-                    <h6 class="mt-2">DIGILIB</h6></a>
+                <div class="col-md-3 col-sm-6">
+                    <a href="https://library.unila.ac.id/digital-library-university-of-lampung/" class="card-layanan d-block">
+                        <i class="bi bi-hdd-network"></i>
+                        <h6>DIGILIB</h6>
+                    </a>
                 </div>
             </div>
         </div>
@@ -158,29 +208,29 @@
         <div class="container mt-4">
             <div class="row mb-4">
                 <div class="col-md-4 mb-3">
-                    <h4 class="text-primary">1.120</h4>
+                    <h4 class="text-primary">{{ number_format($koleksi->buku ?? 0) }}</h4>
                     <p>Buku</p>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <h4 class="text-primary">1.115</h4>
+                    <h4 class="text-primary">{{ number_format($koleksi->jurnal ?? 0) }}</h4>
                     <p>Jurnal</p>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <h4 class="text-primary">1.110</h4>
+                    <h4 class="text-primary">{{ number_format($koleksi->karya_ilmiah ?? 0) }}</h4>
                     <p>KKI (Koleksi Karya Ilmiah)</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <h4 class="text-primary">800+</h4>
+                    <h4 class="text-primary">{{ number_format($koleksi->anggota_aktif ?? 0) }}</h4>
                     <p>Anggota Aktif</p>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <h4 class="text-primary">300+</h4>
+                    <h4 class="text-primary">{{ number_format($koleksi->ebook_ejournal ?? 0) }}</h4>
                     <p>e-Book & e-Journal</p>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <h4 class="text-primary">3.345</h4>
+                    <h4 class="text-primary">{{ number_format($koleksi->total_koleksi ?? 0) }}</h4>
                     <p>Jumlah Total Koleksi</p>
                 </div>
             </div>

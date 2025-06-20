@@ -42,6 +42,7 @@ Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->nam
     Route::get('/data-peminjaman', [SuperAdminController::class, 'dataPeminjaman'])->name('data_peminjaman');
     Route::get('/data-koleksi', [SuperAdminController::class, 'dataKoleksi'])->name('data_koleksi');
     Route::get('/edit-koleksi', [SuperAdminController::class, 'editKoleksi'])->name('edit_koleksi');
+    Route::post('/update-koleksi', [SuperAdminController::class, 'updateKoleksi'])->name('update_koleksi');
 
     // Akun dikelola oleh UserManagementController khusus Super Admin
     Route::get('/data-akun', [UserManagementController::class, 'index'])->name('data_akun');
