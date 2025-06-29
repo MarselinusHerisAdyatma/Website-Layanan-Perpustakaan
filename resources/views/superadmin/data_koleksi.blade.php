@@ -1,6 +1,30 @@
 @extends('templates.dashboard')
 
 @section('content')
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055">
+  @if(session('success'))
+    <div class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ session('success') }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  @endif
+
+  @if(session('error'))
+    <div class="toast align-items-center text-white bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ session('error') }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  @endif
+</div>
+
 <!-- Breadcrumb -->
 <nav class="breadcrumb-container" aria-label="breadcrumb">
     <ol class="breadcrumb-custom">
@@ -14,10 +38,6 @@
 
 <div class="koleksi-wrapper py-5">
     <div class="container">
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-
         <div class="koleksi-card shadow-lg mx-auto">
             <div class="koleksi-header d-flex justify-content-between align-items-center">
                 <div>
@@ -74,6 +94,14 @@
     </div>
 </div>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+    toastElList.forEach(function (toastEl) {
+      new bootstrap.Toast(toastEl, { delay: 4000 }).show()
+    })
+  });
+</script>
 
 @endsection
 
