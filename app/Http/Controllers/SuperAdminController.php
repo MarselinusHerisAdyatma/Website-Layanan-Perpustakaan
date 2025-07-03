@@ -62,17 +62,9 @@ class SuperAdminController extends Controller
         return view('superadmin.data_pengunjung');
     }
 
-    public function dataPeminjaman(Request $request)
+    public function dataPeminjaman()
     {
-        $tahun = $request->input('tahun');
-
-        $peminjaman = PeminjamanBuku::when($tahun, function ($query, $tahun) {
-            return $query->whereYear('tanggal_pinjam', $tahun);
-        })->orderBy('tanggal_pinjam', 'desc')->paginate(10);
-
-        $tahunList = PeminjamanBuku::selectRaw('YEAR(tanggal_pinjam) as tahun')->distinct()->pluck('tahun');
-
-        return view('superadmin.data_peminjaman', compact('peminjaman', 'tahunList'));
+        return view('superadmin.data_peminjaman');
     }
 
     public function dataKoleksi()

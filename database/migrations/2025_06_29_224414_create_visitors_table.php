@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('visitor_number')->unique();
             $table->string('name');
             $table->text('address')->nullable();
-            $table->string('student_id')->nullable()->index(); // Untuk NoAnggota (NPM)
+            $table->string('student_id')->nullable()->index();
             
             $table->foreignId('gender_id')->nullable()->constrained('genders');
             $table->foreignId('profession_id')->nullable()->constrained('professions');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignId('location_id')->nullable()->constrained('locations');
             $table->foreignId('status_id')->nullable()->constrained('statuses');
 
-            $table->text('notes')->nullable(); // Untuk Deskripsi/Information
+            $table->text('notes')->nullable();
             $table->timestamp('visited_at');
             $table->timestamps();
         });

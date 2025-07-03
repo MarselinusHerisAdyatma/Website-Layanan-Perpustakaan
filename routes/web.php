@@ -7,9 +7,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PengunjungController;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserManagementController;
+use App\Models\MemberGuess;
 
 
 Route::get('/', function () {
@@ -38,8 +41,8 @@ Route::post('/logout', function () {
 // SUPER ADMIN
 Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->name('superadmin.')->group(function () {
     Route::get('/', [SuperAdminController::class, 'index'])->name('index');
-    Route::get('/data-pengunjung', [SuperAdminController::class, 'dataPengunjung'])->name('data_pengunjung');
-    Route::get('/data-peminjaman', [SuperAdminController::class, 'dataPeminjaman'])->name('data_peminjaman');
+    Route::get('/data-pengunjung', [PengunjungController::class, 'index'])->name('data_pengunjung');
+    Route::get('/data-peminjaman', [PeminjamanController::class, 'index'])->name('data_peminjaman');
     Route::get('/data-koleksi', [SuperAdminController::class, 'dataKoleksi'])->name('data_koleksi');
     Route::get('/edit-koleksi', [SuperAdminController::class, 'editKoleksi'])->name('edit_koleksi');
     Route::post('/update-koleksi', [SuperAdminController::class, 'updateKoleksi'])->name('update_koleksi');
@@ -57,8 +60,8 @@ Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->nam
 // ADMIN
 Route::prefix('dashboard/admin')->middleware(['auth', 'LoginCheck:2'])->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
-    Route::get('/data-pengunjung', [AdminController::class, 'dataPengunjung'])->name('data_pengunjung');
-    Route::get('/data-peminjaman', [AdminController::class, 'dataPeminjaman'])->name('data_peminjaman');
+    Route::get('/data-pengunjung', [PengunjungController::class, 'index'])->name('data_pengunjung');
+    Route::get('/data-peminjaman-buku', [PeminjamanController::class, 'index'])->name('peminjaman-buku.index');
     Route::get('/data-akun', [AdminController::class, 'dataAkun'])->name('data_akun');
     Route::get('/data-koleksi', [AdminController::class, 'dataKoleksi'])->name('data_koleksi');
     Route::get('/edit-koleksi', [AdminController::class, 'editKoleksi'])->name('edit_koleksi');
@@ -80,4 +83,15 @@ Route::get('/cek-db', function () {
     } catch (\Exception $e) {
         return 'Gagal terkoneksi: ' . $e->getMessage();
     }
+});
+
+Route::get('/data-tanpa-nomor-pengunjung', function () {
+    $dataSisa = MemberGuess::whereNull('NoPengunjung')->get();
+
+    echo "Ditemukan " . $dataSisa->count() . " data tanpa Nomor Pengunjung.<br><br>";
+
+    foreach ($dataSisa as $data) {
+        echo "ID: " . $data->ID . " - Nama: " . $data->Nama . " - No. Anggota: " . $data->NoAnggota . "<br>";
+    }
+
 });

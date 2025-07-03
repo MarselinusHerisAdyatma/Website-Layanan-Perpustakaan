@@ -237,8 +237,6 @@ footer {
 }
 
 
-
-
 /* ===================== WARNA LATAR ===================== */
 .section-tabel-custom {
     background-color: #f2f6fc;
@@ -271,52 +269,24 @@ footer {
 }
 
 /* ===================== TABEL ===================== */
-.table-pengunjung {
-    font-size: 16px;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.table-pengunjung thead th {
-    background-color: #dee2e6;
-    color: #333;
-    font-weight: bold;
-}
-
-.table-pengunjung td {
-    vertical-align: middle;
-}
-
-/* ===================== STYLING TABEL PEMINJAMAN ===================== */
-.table-peminjaman {
-    font-size: 16px;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.table-peminjaman thead th {
-    background-color: #dee2e6;
-    color: #333;
-    font-weight: bold;
-}
-
-.table-peminjaman td {
-    vertical-align: middle;
-}
-
-/* ===================== STYLING TABEL AKUN ===================== */
+.table-pengunjung,
+.table-peminjaman,
 .table-akun {
     font-size: 16px;
     border-radius: 8px;
     overflow: hidden;
 }
 
+.table-pengunjung thead th,
+.table-peminjaman thead th,
 .table-akun thead th {
     background-color: #dee2e6;
     color: #333;
     font-weight: bold;
 }
 
+.table-pengunjung td,
+.table-peminjaman td,
 .table-akun td {
     vertical-align: middle;
 }

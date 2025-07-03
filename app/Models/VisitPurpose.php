@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class VisitPurpose extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'legacy_id']; 
 }
