@@ -124,6 +124,25 @@
         </a>
     </div>
 
+    <div class="header">
+        <img src="{{ asset('images/Logo Perpus Unila.png') }}" alt="Logo Perpustakaan">
+        @auth
+            <!--  tombol masuk Dashboard -->
+            <a href="{{ route('login') }}" class="text-white">
+                <button type="submit" class="text-white bg-transparent border-0">
+                    Dashboard
+                </button>
+        </a>
+        @else
+            <a href="{{ route('login') }}" class="text-white">
+                <i class="bi bi-box-arrow-in-right fs-3"></i>
+                Login
+            </a>
+        @endauth
+    </div>
+    
+
+
     <!-- Carousel -->
     <div id="carouselPerpus" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
