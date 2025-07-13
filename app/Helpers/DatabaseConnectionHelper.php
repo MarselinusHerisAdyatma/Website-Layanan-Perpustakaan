@@ -10,23 +10,23 @@ class DatabaseConnectionHelper
 {
     public static function setDatabaseConnections()
     {
-        // Cek koneksi ke Inlislite Online
+        // Cek koneksi ke Inlislite via SSH
         try {
-            DB::connection('mysql_inlislite_online')->getPdo();
-            session(['inlislite_connection' => 'mysql_inlislite_online']);
+            DB::connection('mysql_inlislite_ssh')->getPdo();
+            session(['inlislite_connection' => 'mysql_inlislite_ssh']);
         } catch (\Exception $e) {
-            Log::warning('[INLISLITE] Gagal koneksi ONLINE: ' . $e->getMessage());
-            session(['inlislite_connection' => 'mysql_inlislite_local']);
+            Log::warning('[INLISLITE] Gagal koneksi SSH: ' . $e->getMessage());
+            session(['inlislite_connection' => null]); // Tidak fallback ke lokal
         }
 
-        // Cek koneksi ke eLib Online
+        // Cek koneksi ke eLib Remote
         try {
-            DB::connection('sqlsrv_elib_online')->getPdo();
-            session(['elib_connection' => 'sqlsrv_elib_online']);
+            DB::connection('sqlsrv_elib_remote')->getPdo();
+            session(['elib_connection' => 'sqlsrv_elib_remote']);
         } catch (\Exception $e) {
-            Log::warning('[ELIB] Gagal koneksi ONLINE: ' . $e->getMessage());
-            session(['elib_connection' => 'sqlsrv_elib_local']);
+            Log::warning('[ELIB] Gagal koneksi Remote: ' . $e->getMessage());
+            session(['elib_connection' => null]); // Tidak fallback ke lokal
         }
     }
-    
 }
+

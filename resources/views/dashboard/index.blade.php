@@ -13,7 +13,10 @@
 
 <!-- DASHBOARD CARD SECTION -->
 <div class="dashboard-container">
-
+<pre>
+INLIS Connection: {{ session('inlislite_connection') }}
+eLib Connection: {{ session('elib_connection') }}
+</pre>
 <!-- FILTER KONEKSI DATABASE -->
 <!-- <div class="alert alert-info">
     <strong>Koneksi Pengunjung:</strong> {{ session('inlislite_connection') }} <br>

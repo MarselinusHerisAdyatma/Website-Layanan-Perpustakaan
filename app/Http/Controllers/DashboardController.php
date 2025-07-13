@@ -21,8 +21,8 @@ class DashboardController extends Controller
         // $inlisliteConnection = session('mysql_inlislite_local');
         // $elibConnection = session('sqlsrv_elib_local');
 
-        $inlisliteConnection = session('mysql_inlislite_ssh');
-        $elibConnection = session('sqlsrv_elib_remote');
+        $inlisliteConnection = session('inlislite_connection');
+        $elibConnection = session('elib_connection');
 
         // $inlisliteConnection = session('inlislite_connection', 'mysql_inlislite_local');
         // $elibConnection = session('elib_connection', 'sqlsrv_elib_local');

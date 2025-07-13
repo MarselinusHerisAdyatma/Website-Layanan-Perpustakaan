@@ -17,6 +17,7 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Helpers\DatabaseConnectionHelper;
 
 Route::get('/', function () {
     return view('landing_page');
@@ -106,19 +107,21 @@ Route::get('/test-email', function () {
 });
 
 Route::get('/cek-koneksi', function () {
-    $inlislite = session('inlislite_connection', 'mysql_inlislite_local');
-    $elib = session('elib_connection', 'sqlsrv_elib_local');
+    DatabaseConnectionHelper::setDatabaseConnections(); // ← Ini WAJIB!
+
+    $inlislite = session('inlislite_connection');
+    $elib = session('elib_connection');
 
     try {
         $inlisliteDb = DB::connection($inlislite)->select('SELECT DATABASE() as db');
     } catch (\Exception $e) {
-        $inlisliteDb = '❌ ERROR: ' . $e->getMessage();
+        $inlisliteDb = '❌ ERROR: Database connection [' . $inlislite . '] not configured.';
     }
 
     try {
         $elibDb = DB::connection($elib)->select('SELECT DB_NAME() as db');
     } catch (\Exception $e) {
-        $elibDb = '❌ ERROR: ' . $e->getMessage();
+        $elibDb = '❌ ERROR: Database connection [' . $elib . '] not configured.';
     }
 
     return view('cek-koneksi', compact('inlislite', 'elib', 'inlisliteDb', 'elibDb'));
