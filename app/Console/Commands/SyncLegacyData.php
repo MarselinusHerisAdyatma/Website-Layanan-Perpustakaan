@@ -48,7 +48,7 @@ class SyncLegacyData extends Command
     {
         $this->line("-> Menyinkronkan: {$legacyTableName}");
         try {
-            $legacyData = DB::connection('mysql_xampp')->table($legacyTableName)->get();
+            $legacyData = DB::connection('mysql_inlislite_local')->table($legacyTableName)->get();
             foreach ($legacyData as $data) {
                 $modelClass::updateOrCreate(
                     ['legacy_id' => $data->$legacyIdColumn],
@@ -72,7 +72,7 @@ class SyncLegacyData extends Command
         $locations = Location::pluck('id', 'legacy_id');
         $statuses = Status::pluck('id', 'legacy_id');
 
-        DB::connection('mysql_xampp')->table('memberguesses')->whereNotNull('NoPengunjung')->orderBy('ID')->chunk(200, function ($visitors) use ($professions, $educations, $genders, $visitPurposes, $locations, $statuses) {
+        DB::connection('mysql_inlislite_local')->table('memberguesses')->orderBy('ID')->chunk(500, function ($visitors) use ($professions, $educations, $genders, $visitPurposes, $locations, $statuses) {
             foreach ($visitors as $data) {
                 Visitor::updateOrCreate(
                     ['visitor_number' => $data->NoPengunjung],
@@ -92,7 +92,7 @@ class SyncLegacyData extends Command
                     ]
                 );
             }
-            $this->line('   ...200 data pengunjung diproses.');
+            $this->line('   ...' . count($visitors) . ' data pengunjung diproses.');
         });
         
         $this->info("   [OK] Sinkronisasi tabel pengunjung utama selesai.");

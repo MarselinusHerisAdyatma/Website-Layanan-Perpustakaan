@@ -43,65 +43,94 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        // Koneksi Default Laravel (Warehouse)
         'mysql' => [
             'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
+            'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
         ],
         
-        'mysql_xampp' => [
+        // Koneksi INLISLite Lokal (XAMPP)
+        'mysql_inlislite_local' => [
             'driver' => 'mysql',
-            'host' => env('DB_XAMPP_HOST', '127.0.0.1'),
-            'port' => env('DB_XAMPP_PORT', '3306'),
-            'database' => env('DB_XAMPP_DATABASE', 'forge'),
-            'username' => env('DB_XAMPP_USERNAME', 'forge'),
-            'password' => env('DB_XAMPP_PASSWORD', ''),
-            'unix_socket' => env('DB_XAMPP_SOCKET', ''),
+            'host' => env('DB_INLIS_LOCAL_HOST', '127.0.0.1'),
+            'port' => env('DB_INLIS_LOCAL_PORT', '3309'),
+            'database' => env('DB_INLIS_LOCAL_DATABASE'),
+            'username' => env('DB_INLIS_LOCAL_USERNAME'),
+            'password' => env('DB_INLIS_LOCAL_PASSWORD'),
+            'unix_socket' => '',
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
+            'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            'options' => [],
         ],
 
-        'sqlsrv' => [
+        // Koneksi INLISLite Online (via SSH Tunnel)
+        'mysql_inlislite_ssh' => [
+            'driver' => 'mysql',
+            'host' => env('DB_INLIS_ONLINE_HOST', '127.0.0.1'),
+            'port' => env('DB_INLIS_ONLINE_PORT', '3306'),
+            'database' => env('DB_INLIS_ONLINE_DATABASE'),
+            'username' => env('DB_INLIS_ONLINE_USERNAME'),
+            'password' => env('DB_INLIS_ONLINE_PASSWORD'),
+            'unix_socket' => '',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+            'options' => [
+                'ssh' => [
+                    'host' => env('DB_INLIS_SSH_HOST'),
+                    'username' => env('DB_INLIS_SSH_USER'),
+                    'password' => env('DB_INLIS_SSH_PASSWORD'),
+                ],
+            ],
+        ],
+
+        // Koneksi eLib Lokal (SSMS)
+        'sqlsrv_elib_local' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST_SQLSRV', '127.0.0.1'),
-            'port' => env('DB_PORT_SQLSRV', '1433'),
-            'database' => env('DB_DATABASE_SQLSRV', 'forge'),
-            'username' => env('DB_USERNAME_SQLSRV', 'forge'),
-            'password' => env('DB_PASSWORD_SQLSRV', ''),
+            'host' => env('DB_ELIB_LOCAL_HOST', 'localhost\\SQLEXPRESS'),
+            'port' => env('DB_ELIB_LOCAL_PORT', '1433'),
+            'database' => env('DB_ELIB_LOCAL_DATABASE'),
+            'username' => env('DB_ELIB_LOCAL_USERNAME'),
+            'password' => env('DB_ELIB_LOCAL_PASSWORD'),
             'charset' => 'utf8',
             'prefix' => '',
+            'prefix_indexes' => true,
         ],
 
-        // 'mysql' => [
-        //     'driver' => 'mysql',
-        //     'url' => env('DATABASE_URL'),
-        //     'host' => env('DB_HOST', '127.0.0.1'),
-        //     'port' => env('DB_PORT', '3306'),
-        //     'database' => env('DB_DATABASE', 'forge'),
-        //     'username' => env('DB_USERNAME', 'forge'),
-        //     'password' => env('DB_PASSWORD', ''),
-        //     'unix_socket' => env('DB_SOCKET', ''),
-        //     'charset' => 'utf8mb4',
-        //     'collation' => 'utf8mb4_unicode_ci',
-        //     'prefix' => '',
-        //     'prefix_indexes' => true,
-        //     'strict' => true,
-        //     'engine' => null,
-        //     'options' => extension_loaded('pdo_mysql') ? array_filter([
-        //         PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-        //     ]) : [],
-        // ],
+        // Koneksi eLib Online (Jaringan Kampus)
+        'sqlsrv_elib_remote' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_ELIB_REMOTE_HOST'),
+            'port' => env('DB_ELIB_REMOTE_PORT', '1433'),
+            'database' => env('DB_ELIB_REMOTE_DATABASE'),
+            'username' => env('DB_ELIB_REMOTE_USERNAME'),
+            'password' => env('DB_ELIB_REMOTE_PASSWORD'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',
@@ -117,21 +146,6 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
-
-        // 'sqlsrv' => [
-        //     'driver' => 'sqlsrv',
-        //     'url' => env('DATABASE_URL'),
-        //     'host' => env('DB_HOST', 'localhost'),
-        //     'port' => env('DB_PORT', '1433'),
-        //     'database' => env('DB_DATABASE', 'forge'),
-        //     'username' => env('DB_USERNAME', 'forge'),
-        //     'password' => env('DB_PASSWORD', ''),
-        //     'charset' => 'utf8',
-        //     'prefix' => '',
-        //     'prefix_indexes' => true,
-            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
-            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
-        // ],
 
     ],
 

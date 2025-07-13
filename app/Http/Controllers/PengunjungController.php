@@ -1,48 +1,147 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\MemberGuess;
 use App\Models\Profession; 
-use Illuminate\Support\Facades\DB; 
+use Carbon\Carbon;
 
 class PengunjungController extends Controller
 {
     public function index(Request $request)
     {
-        $query = DB::connection('mysql_xampp')
-                ->table('memberguesses')
-                ->select(
-                    'memberguesses.Nama as NamaPengunjung',
-                    'memberguesses.NoAnggota',
-                    'memberguesses.CreateDate',
-                    'master_fakultas.Nama as NamaFakultas',    
-                    'master_jurusan.Nama as NamaJurusan',      
-                    'master_program_studi.Nama as NamaProdi',  
-                    'jenis_anggota.jenisanggota',
-                    'status_anggota.Nama as NamaStatus'
-                )
-                ->leftJoin('members', 'memberguesses.NoAnggota', '=', 'members.MemberNo')
-                ->leftJoin('master_fakultas', 'members.Fakultas_id', '=', 'master_fakultas.id')
-                ->leftJoin('master_jurusan', 'members.Jurusan_id', '=', 'master_jurusan.id')
-                ->leftJoin('master_program_studi', 'members.ProgramStudi_id', '=', 'master_program_studi.id')
-                ->leftJoin('jenis_anggota', 'members.JenisAnggota_id', '=', 'jenis_anggota.id')
-                ->leftJoin('status_anggota', 'members.StatusAnggota_id', '=', 'status_anggota.id');
+        
+        $inlisliteConnection = session('inlislite_connection', 'mysql_inlislite_local');
 
+        $query = DB::connection($inlisliteConnection)
+            ->table('memberguesses as mg')
+            ->select(
+                'mg.Nama as NamaPengunjung',
+                'mg.NoAnggota',
+                'mg.CreateDate as WaktuKunjungan',
+                DB::raw("IFNULL(mf.Nama, 'Tidak diketahui') as NamaFakultas"),
+                DB::raw("IFNULL(mj.Nama, 'Tidak diketahui') as NamaJurusan"),
+                DB::raw("IFNULL(mp.Nama, 'Tidak diketahui') as NamaProdi"),
+                DB::raw("IFNULL(ja.jenisanggota, '-') as JenisAnggota"),
+                DB::raw("IFNULL(sa.Nama, '-') as StatusAnggota"),
+                DB::raw("CASE WHEN mg.NoAnggota IS NULL OR m.MemberNo IS NULL THEN 'Non Anggota' ELSE 'Anggota' END as TipePengunjung")
+            )
+            ->leftJoin('members as m', 'mg.NoAnggota', '=', 'm.MemberNo')
+            ->leftJoin('master_fakultas as mf', 'm.Fakultas_id', '=', 'mf.id')
+            ->leftJoin('master_jurusan as mj', 'm.Jurusan_id', '=', 'mj.id')
+            ->leftJoin('master_program_studi as mp', 'm.ProgramStudi_id', '=', 'mp.id')
+            ->leftJoin('jenis_anggota as ja', 'm.JenisAnggota_id', '=', 'ja.id')
+            ->leftJoin('status_anggota as sa', 'm.StatusAnggota_id', '=', 'sa.id');
+
+        // Search Nama atau NoAnggota
+        // Filter
         if ($request->filled('search')) {
-            $searchTerm = $request->input('search');
-            $query->where(function ($q) use ($searchTerm) {
-                $q->where('memberguesses.Nama', 'like', '%' . $searchTerm . '%')
-                ->orWhere('memberguesses.NoAnggota', 'like', '%' . $searchTerm . '%');
+            $search = '%' . $request->input('search') . '%';
+            $query->where(function ($q) use ($search) {
+                $q->where('mg.Nama', 'like', $search)
+                  ->orWhere('mg.NoAnggota', 'like', $search);
             });
         }
 
-        if ($request->filled('tahun') && $request->input('tahun') != 'all') {
-            $query->whereYear('memberguesses.CreateDate', $request->input('tahun'));
+        // Filter Tahun
+        if ($request->filled('tahun') && $request->tahun !== 'all') {
+            $query->whereYear('mg.CreateDate', $request->tahun);
         }
 
-        $dataPengunjung = $query->latest('memberguesses.CreateDate')->paginate(20)->withQueryString();
+        // Filter Bulan
+        if ($request->filled('bulan')) {
+            $query->whereMonth('mg.CreateDate', $request->bulan);
+        }
 
-        return view('superadmin.data_pengunjung', ['dataPengunjung' => $dataPengunjung]);
+        // Filter Hari
+        if ($request->filled('hari')) {
+            $query->whereDate('mg.CreateDate', $request->hari);
+        }
+
+        // Filter Anggota / Non
+        if ($request->filled('tipe')) {
+            $request->tipe == 'anggota'
+                ? $query->whereNotNull('m.MemberNo')
+                : $query->whereNull('m.MemberNo');
+        }
+        
+        // Filter Fakultas
+        if ($request->filled('fakultas')) {
+            $query->where('mf.Nama', $request->fakultas);
+        }
+
+        // Filter Jurusan
+        if ($request->filled('jurusan')) {
+            $query->where('mj.Nama', $request->jurusan);
+        }
+
+        // Filter Prodi
+        if ($request->filled('prodi')) {
+            $query->where('mp.Nama', $request->prodi);
+        }
+
+        $totalPengunjung = (clone $query)->count();
+        $dataPengunjung = $query->latest('mg.CreateDate')->paginate(20)->withQueryString();
+
+        // Tentukan daftar kata yang tidak ingin diubah (misalnya singkatan)
+        $pengecualianKapital = ['FISIP', 'FEB', 'FKIP', 'PDD', 'PSDKU', 'ABG', 'SD', 'IPA', 'IPS', 'PGSD', 'PPG', 'PPKN', 'MIPA', 'D2', 'D3', 'D4'];
+
+        // Fungsi pemformatan yang bisa dipakai ulang
+        $formatFunction = function ($item) use ($pengecualianKapital) {
+            $formatted = Str::title(strtolower(trim($item)));
+            foreach ($pengecualianKapital as $acronym) {
+                $pattern = '/\b' . preg_quote($acronym, '/') . '\b/i';
+                $formatted = preg_replace($pattern, $acronym, $formatted);
+            }
+            return $formatted;
+        };
+
+        // Terapkan fungsi format ke setiap baris data yang akan ditampilkan
+        $dataPengunjung->getCollection()->transform(function ($pengunjung) use ($formatFunction) {
+            $pengunjung->NamaFakultas = $formatFunction($pengunjung->NamaFakultas);
+            $pengunjung->NamaProdi = $formatFunction($pengunjung->NamaProdi);
+            $pengunjung->NamaJurusan = $formatFunction($pengunjung->NamaJurusan);
+            // Kolom lain bisa ditambahkan di sini jika perlu
+            
+            return $pengunjung;
+        });
+
+        $fakultasList = DB::connection($inlisliteConnection)->table('master_fakultas')->pluck('Nama')
+            ->map($formatFunction)->unique()->sort()->values();
+
+        $jurusanList = DB::connection($inlisliteConnection)->table('master_jurusan')->pluck('Nama')
+            ->map($formatFunction)->unique()->sort()->values();
+            
+        $prodiList = DB::connection($inlisliteConnection)->table('master_program_studi')->pluck('Nama')
+            ->map($formatFunction)->unique()->sort()->values();
+
+        // DITAMBAHKAN: Membuat daftar tahun menjadi dinamis
+        $tahunList = DB::connection($inlisliteConnection)->table('memberguesses')
+            ->selectRaw('DISTINCT YEAR(CreateDate) as tahun')
+            ->whereNotNull('CreateDate')
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
+
+        // DITAMBAHKAN: Membuat daftar bulan dalam Bahasa Indonesia
+        Carbon::setLocale('id');
+        $bulanList = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $bulanList[str_pad($i, 2, '0', STR_PAD_LEFT)] = Carbon::create()->month($i)->translatedFormat('F');
+        }
+
+        return view('superadmin.data_pengunjung', compact(
+            'dataPengunjung',
+            'totalPengunjung',
+            'fakultasList',
+            'jurusanList',
+            'prodiList',
+            'tahunList',
+            'bulanList'  
+        ));
     }
 }

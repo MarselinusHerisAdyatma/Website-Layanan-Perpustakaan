@@ -38,6 +38,14 @@
             </div>
 
             <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control-custom" value="{{ old('email', $user->email) }}" required>
+                @error('email')
+                    <div class="error-text">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
                 <label for="password">Password Baru (Opsional)</label>
                 <input type="password" name="password" class="form-control-custom" autocomplete="new-password">
                 <small class="text-muted">Kosongkan jika tidak ingin mengubah password</small>

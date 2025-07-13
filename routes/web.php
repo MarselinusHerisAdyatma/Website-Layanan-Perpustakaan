@@ -1,19 +1,22 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BukuController;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PengunjungController;
 use App\Http\Controllers\PeminjamanController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserManagementController;
-use App\Models\MemberGuess;
-
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 Route::get('/', function () {
     try {
@@ -32,15 +35,21 @@ Route::get('/', [LandingPageController::class, 'index'])->name('landing_page');
 // LOGIN
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
 
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+
 // SUPER ADMIN
 Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->name('superadmin.')->group(function () {
-    Route::get('/', [SuperAdminController::class, 'index'])->name('index');
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::post('/set-koneksi', [DashboardController::class, 'setKoneksi'])->name('set-koneksi');
     Route::get('/data-pengunjung', [PengunjungController::class, 'index'])->name('data_pengunjung');
     Route::get('/data-peminjaman', [PeminjamanController::class, 'index'])->name('data_peminjaman');
     Route::get('/data-koleksi', [SuperAdminController::class, 'dataKoleksi'])->name('data_koleksi');
@@ -59,7 +68,8 @@ Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->nam
     
 // ADMIN
 Route::prefix('dashboard/admin')->middleware(['auth', 'LoginCheck:2'])->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::post('/set-koneksi', [DashboardController::class, 'setKoneksi'])->name('set-koneksi');
     Route::get('/data-pengunjung', [PengunjungController::class, 'index'])->name('data_pengunjung');
     Route::get('/data-peminjaman-buku', [PeminjamanController::class, 'index'])->name('peminjaman-buku.index');
     Route::get('/data-akun', [AdminController::class, 'dataAkun'])->name('data_akun');
@@ -68,30 +78,40 @@ Route::prefix('dashboard/admin')->middleware(['auth', 'LoginCheck:2'])->name('ad
 
 });
 
-// USER
-Route::prefix('dashboard/user')->middleware(['auth', 'LoginCheck:3'])->name('user.')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('index');
-    Route::get('/data-pengunjung', [UserController::class, 'dataPengunjung'])->name('data_pengunjung');
-    Route::get('/data-peminjaman', [UserController::class, 'dataPeminjaman'])->name('data_peminjaman');
-    });
 
+Route::get('/cek-semua-koneksi', function () {
+    $status = [];
 
-Route::get('/cek-db', function () {
-    try {
-        DB::connection('mysql_xampp')->getPdo();
-        return 'Koneksi ke mysql_xampp berhasil!';
-    } catch (\Exception $e) {
-        return 'Gagal terkoneksi: ' . $e->getMessage();
+    $koneksiList = [
+        'mysql_inlislite_local' => 'Inlislite Lokal',
+        'mysql_inlislite_ssh'   => 'Inlislite Online (SSH)',
+        'sqlsrv_elib_local'     => 'eLib Lokal',
+        'sqlsrv_elib_remote'    => 'eLib Online (Kampus)',
+    ];
+
+    foreach ($koneksiList as $key => $label) {
+        try {
+            DB::connection($key)->select('SELECT 1');
+            $status[$key] = "✅ $label: Terhubung";
+        } catch (\Exception $e) {
+            $status[$key] = "❌ $label: Gagal - " . $e->getMessage();
+            Log::error("[$label] Gagal koneksi: " . $e->getMessage());
+        }
     }
+
+    return view('cek-semua-koneksi', compact('status'));
 });
 
-Route::get('/data-tanpa-nomor-pengunjung', function () {
-    $dataSisa = MemberGuess::whereNull('NoPengunjung')->get();
+Route::get('/test-email', function () {
+    try {
+        Mail::raw('Tes kirim email dari Laravel', function ($message) {
+            $message->to('emailtujuan@example.com')
+                    ->subject('Tes Kirim Email');
+        });
 
-    echo "Ditemukan " . $dataSisa->count() . " data tanpa Nomor Pengunjung.<br><br>";
-
-    foreach ($dataSisa as $data) {
-        echo "ID: " . $data->ID . " - Nama: " . $data->Nama . " - No. Anggota: " . $data->NoAnggota . "<br>";
+        return 'Email berhasil dikirim!';
+    } catch (\Exception $e) {
+        Log::error('Gagal kirim email: ' . $e->getMessage());
+        return 'Gagal kirim email: ' . $e->getMessage();
     }
-
 });

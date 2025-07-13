@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo_unila.png') }}">
 
     <style>
         html, body {
@@ -30,6 +31,35 @@
             align-items: center;
         }
 
+        .nav-link-login, .nav-link-dashboard {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-link-login:hover,
+        .nav-link-dashboard:hover {
+            transform: translateY(-2px);
+        }
+
+        .dashboard-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .dashboard-btn:hover {
+            transform: translateY(-2px);
+        }
+
         .header img {
             height: 60px;
         }
@@ -47,6 +77,44 @@
         .section-numbers h3 {
             color: #150fa6;
             margin-bottom: 30px;
+        }
+
+        /* CSS untuk Statistik Bulanan */
+        .section-stats-bulanan {
+            padding-top: 40px;
+            padding-bottom: 20px;
+            background-color: #f4f4f4; /* Samakan dengan warna latar */
+        }
+
+        .stat-card {
+            background-color: #fff;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            color: #150fa6;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px); /* Mengangkat kartu sedikit ke atas */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Bayangan lebih tebal */
+            cursor: pointer; /* Mengubah kursor menjadi tangan */
+        }
+
+        .stat-card .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .stat-card .label {
+            font-size: 1rem;
+            color: #6c757d;
         }
 
         .card-layanan {
@@ -119,24 +187,20 @@
     <!-- Header -->
     <div class="header">
         <img src="{{ asset('images/Logo Perpus Unila.png') }}" alt="Logo Perpustakaan">
-        <a href="{{ route('login') }}" class="text-white">
-            <i class="bi bi-box-arrow-in-right fs-3"></i>
-        </a>
-    </div>
-
-    <div class="header">
-        <img src="{{ asset('images/Logo Perpus Unila.png') }}" alt="Logo Perpustakaan">
+        <div id="real-time-clock" class="me-4 text-white fw-bold fs-5"></div>
         @auth
-            <!--  tombol masuk Dashboard -->
-            <a href="{{ route('login') }}" class="text-white">
-                <button type="submit" class="text-white bg-transparent border-0">
-                    Dashboard
+            <!-- Tombol Dashboard -->
+            <a href="{{ route('login') }}" class="nav-link-dashboard">
+                <button type="submit" class="dashboard-btn">
+                    <i class="bi bi-house-door fs-5"></i>
+                    <span>Dashboard</span>
                 </button>
-        </a>
+            </a>
         @else
-            <a href="{{ route('login') }}" class="text-white">
-                <i class="bi bi-box-arrow-in-right fs-3"></i>
-                Login
+            <!-- Tombol Login -->
+            <a href="{{ route('login') }}" class="nav-link-login">
+                <i class="bi bi-box-arrow-in-right fs-5"></i>
+                <span>Login</span>
             </a>
         @endauth
     </div>
@@ -221,6 +285,46 @@
         </div>
     </div>
 
+    <div class="section-stats-bulanan text-center">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 justify-content-center g-4">
+                
+                <div class="col">
+                    <div class="stat-card">
+                        <div class="icon"><i class="bi bi-person-check-fill"></i></div>
+                        <div class="value">{{ number_format($totalPengunjungHariIni) }}</div>
+                        <div class="label">Pengunjung Hari Ini</div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="stat-card">
+                        <div class="icon"><i class="bi bi-journal-check"></i></div>
+                        <div class="value">{{ number_format($totalPeminjamHariIni) }}</div>
+                        <div class="label">Peminjaman Hari Ini</div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="stat-card">
+                        <div class="icon"><i class="bi bi-people-fill"></i></div>
+                        <div class="value">{{ number_format($totalPengunjungBulanIni) }}</div>
+                        <div class="label">Pengunjung Bulan Ini</div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="stat-card">
+                        <div class="icon"><i class="bi bi-book-half"></i></div>
+                        <div class="value">{{ number_format($totalPeminjamBulanIni) }}</div>
+                        <div class="label">Peminjaman Bulan Ini</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- PERPUSTAKAAN DALAM ANGKA -->
     <div class="section-numbers text-center py-5" style="background-color:#f4f4f4;">
         <h3 style="color:#150fa6;">Perpustakaan Dalam Angka</h3>
@@ -288,5 +392,38 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function updateClock() {
+        const now = new Date();
+        const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+        const namaHari = hari[now.getDay()];
+        const tanggal = now.getDate();
+        const namaBulan = bulan[now.getMonth()];
+        const tahun = now.getFullYear();
+
+        let jam = now.getHours();
+        let menit = now.getMinutes();
+        let detik = now.getSeconds();
+
+        // Tambahkan nol di depan jika angkanya < 10
+        jam = jam < 10 ? '0' + jam : jam;
+        menit = menit < 10 ? '0' + menit : menit;
+        detik = detik < 10 ? '0' + detik : detik;
+
+        // Gabungkan semuanya menjadi satu string
+        const formattedString = `${namaHari}, ${tanggal} ${namaBulan} ${tahun} | ${jam}:${menit}:${detik}`;
+
+        // Tampilkan hasilnya di dalam div yang sudah kita siapkan
+        document.getElementById('real-time-clock').innerHTML = formattedString;
+    }
+
+    // Jalankan fungsi updateClock setiap detik (1000 milidetik)
+    setInterval(updateClock, 1000);
+
+    // Panggil fungsi sekali saat halaman dimuat agar tidak ada jeda
+    updateClock();
+</script>
 </body>
 </html>

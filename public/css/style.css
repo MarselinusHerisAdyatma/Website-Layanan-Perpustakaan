@@ -114,6 +114,30 @@ footer {
     color: #999;
 }
 
+/* Koneksi */
+
+.koneksi-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.form-koneksi {
+    width: 180px;
+    height: 38px;
+    padding: 6px 12px;
+    font-size: 0.95rem;
+    border-radius: 2rem;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease;
+}
+
+.form-koneksi:focus {
+    border-color: #4e73df;
+    outline: none;
+}
 
 
 /* Dashboard */
@@ -211,20 +235,6 @@ footer {
 
 /* Chart */
 
-.chart-wrapper {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.chart-title {
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
 .row-chart {
     display: flex;
     flex-wrap: wrap;
@@ -234,8 +244,28 @@ footer {
 .chart-box {
     flex: 1;
     min-width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+.chart-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center; /* Judul di tengah agar lebih rapi */
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 350px; /* Batasan tinggi untuk chart */
+}
+
+/* Memberi jarak bawah pada baris chart terakhir sebelum footer */
+.row-chart:last-child {
+    margin-bottom: 2rem;
+}
 
 /* ===================== WARNA LATAR ===================== */
 .section-tabel-custom {
@@ -289,6 +319,25 @@ footer {
 .table-peminjaman td,
 .table-akun td {
     vertical-align: middle;
+}
+
+.table-pengunjung .badge {
+    border-radius: 1rem;
+    padding: 0.3em 0.6em;
+    font-weight: 500;
+}
+
+.table-peminjaman .badge {
+    border-radius: 1rem;
+    padding: 0.3em 0.6em;
+    font-weight: 500;
+}
+
+.modal-content {
+    border-radius: 1rem;
+}
+.modal-header, .modal-footer {
+    border: none;
 }
 
 /* ===================== PAGINATION ===================== */
@@ -437,9 +486,6 @@ footer {
     transform: scale(1.2);
     color: #084298;
 }
-
-
-
 
 .edit-koleksi-wrapper {
     background-color: #f2f6fc;

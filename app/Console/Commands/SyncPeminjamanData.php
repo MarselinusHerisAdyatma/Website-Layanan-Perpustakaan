@@ -15,8 +15,10 @@ class SyncPeminjamanData extends Command
     {
         $this->info('Memulai sinkronisasi data peminjaman...');
 
-        $connection = DB::connection('sqlsrv');
+        // Gunakan koneksi dari .env atau session (jika dinamis, tinggal ubah di sini)
+        $connection = DB::connection('sqlsrv_elib_local'); // atau dari session
 
+        // Query utama
         $query = "
             SELECT
                 Circ.ItemNo,
@@ -30,32 +32,47 @@ class SyncPeminjamanData extends Command
                 CMCirculation AS Circ
             INNER JOIN CItem AS Item ON Circ.ItemNo = Item.ItemNo
             INNER JOIN EBib AS Bib ON Item.ItemBib = Bib.BibId
-            INNER JOIN ETit AS Title ON Bib.BibId = Title.TitId
+            LEFT JOIN ETit AS Title ON Bib.BibId = Title.TitId -- LEFT JOIN agar tetap ambil data walau tidak ada judul
             INNER JOIN CPatron AS Patron ON Circ.ID = Patron.ID
             INNER JOIN CLevel ON Patron.[Level] = CLevel.LvlCode
         ";
 
-        $connection->table(DB::raw("({$query}) as sub"))->orderBy('ChkODate')->chunk(200, function ($records) {
+        try {
+            $records = $connection->table(DB::raw("({$query}) as sub"))
+                                  ->orderBy('ChkODate')
+                                  ->get();
+
+            $this->info('Jumlah data ditemukan: ' . $records->count());
+
+            $processed = 0;
+
             foreach ($records as $record) {
                 PeminjamanBuku::updateOrCreate(
                     [
-                        'item_no' => $record->ItemNo,
+                        'item_no'   => $record->ItemNo,
                         'loan_date' => $record->ChkODate,
                     ],
-
                     [
-                        'book_title' => ltrim(str_replace(['\a', '\b', '\c'], ' ', $record->Judul)),
-                        'borrower_name' => $record->FName,
-                        'borrower_faculty' => $record->Fakultas,
-                        'due_date' => $record->DueDate,
-                        'return_date' => $record->ChkIDate,
+                        'book_title'       => isset($record->Judul) ? ltrim(str_replace(['\a', '\b', '\c'], ' ', $record->Judul)) : 'Judul Tidak Tersedia',
+                        'borrower_name'    => $record->FName ?? 'Tidak diketahui',
+                        'borrower_faculty' => $record->Fakultas ?? 'Tidak diketahui',
+                        'due_date'         => $record->DueDate,
+                        'return_date'      => $record->ChkIDate,
                     ]
                 );
-            }
-            $this->line('...200 data peminjaman diproses.');
-        });
 
-        $this->info('Sinkronisasi data peminjaman selesai!');
+                $processed++;
+                if ($processed % 100 === 0) {
+                    $this->line("...{$processed} data diproses");
+                }
+            }
+
+            $this->info("Sinkronisasi selesai! Total data diproses: $processed");
+
+        } catch (\Exception $e) {
+            $this->error('Terjadi kesalahan: ' . $e->getMessage());
+        }
+
         return 0;
     }
 }

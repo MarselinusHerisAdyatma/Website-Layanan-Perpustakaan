@@ -36,6 +36,14 @@
             </div>
 
             <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control-custom" value="{{ old('email') }}" required>
+                @error('email')
+                    <div class="error-text">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
                 <label for="password">Password (Minimal 6 karakter)</label>
                 <input type="password" name="password" class="form-control-custom" autocomplete="new-password" required>
                 @error('password')

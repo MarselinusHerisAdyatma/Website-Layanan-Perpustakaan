@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,7 @@ class LoginController extends Controller
             return $this->redirectByRole(auth()->user()->role->name);
         }
 
-        return view('login');
+        return view('auth.login');
     }
 
     public function authenticate(Request $request)
@@ -45,7 +46,6 @@ class LoginController extends Controller
         return match ($role) {
             'Super Admin' => redirect('/dashboard/superadmin'),
             'Admin'       => redirect('/dashboard/admin'),
-            'User'        => redirect('/dashboard/user'),
             default       => redirect('/login')->with('error', 'Role tidak dikenali.'),
         };
     }

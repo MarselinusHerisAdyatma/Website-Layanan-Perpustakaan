@@ -41,6 +41,7 @@ class UserManagementController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
             'role_id' => 'required|exists:roles,id',
         ]);
@@ -48,6 +49,7 @@ class UserManagementController extends Controller
         User::create([
             'name' => $request->name,
             'username' => $request->username,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id,
         ]);
@@ -69,12 +71,14 @@ class UserManagementController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|string|min:6',
             'role_id' => 'required|exists:roles,id',
         ]);
 
         $user->name = $request->name;
         $user->username = $request->username;
+        $user->email = $request->email;
         $user->role_id = $request->role_id;
 
         if ($request->password) {

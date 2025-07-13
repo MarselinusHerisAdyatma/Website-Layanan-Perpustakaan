@@ -61,15 +61,9 @@
       <a href="{{ route('superadmin.data_akun.create') }}" class="btn btn-success">
         <i class="bi bi-plus-circle me-1"></i> Tambah Akun
       </a>
-      <button class="btn btn-outline-success" title="Download PDF">
-        <i class="bi bi-file-earmark-pdf-fill"></i>
-      </button>
       <a href="{{ route('superadmin.data_akun') }}" class="btn btn-outline-primary" title="Refresh">
         <i class="bi bi-arrow-clockwise"></i>
       </a>
-      <button class="btn btn-outline-danger" title="Hapus Semua">
-        <i class="bi bi-trash-fill"></i>
-      </button>
     </div>
 
     <!-- TABEL -->
@@ -79,6 +73,7 @@
           <th>No</th>
           <th>Nama</th>
           <th>Username</th>
+          <th>Email</th>
           <th>Role</th>
           <th>Aksi</th>
         </tr>
@@ -89,6 +84,7 @@
           <td>{{ $index + 1 }}</td>
           <td>{{ $user->name }}</td>
           <td>{{ $user->username }}</td>
+          <td>{{ $user->email }}</td>
           <td>
           @if ($user->role->id == 1)
             <span class="badge bg-danger">Super Admin</span>

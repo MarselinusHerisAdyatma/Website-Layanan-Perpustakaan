@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Models\PeminjamanBuku;
+use App\Models\Visitor;
+use App\Models\Profession;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function index()
-    {
-        return view('admin.index');
-    }
-
     public function dataPengunjung()
     {
         return view('admin.data_pengunjung');
