@@ -19,15 +19,6 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 
 Route::get('/', function () {
-    try {
-        \DB::connection()->getPdo();
-        return 'Database Connected!';
-    } catch (\Exception $e) {
-        return 'Connection Failed: ' . $e->getMessage();
-    }
-});
-
-Route::get('/', function () {
     return view('landing_page');
 });
 Route::get('/', [LandingPageController::class, 'index'])->name('landing_page');
@@ -49,7 +40,6 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('
 // SUPER ADMIN
 Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->name('superadmin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
-    Route::post('/set-koneksi', [DashboardController::class, 'setKoneksi'])->name('set-koneksi');
     Route::get('/data-pengunjung', [PengunjungController::class, 'index'])->name('data_pengunjung');
     Route::get('/data-peminjaman', [PeminjamanController::class, 'index'])->name('data_peminjaman');
     Route::get('/data-koleksi', [SuperAdminController::class, 'dataKoleksi'])->name('data_koleksi');
@@ -69,7 +59,6 @@ Route::prefix('dashboard/superadmin')->middleware(['auth', 'LoginCheck:1'])->nam
 // ADMIN
 Route::prefix('dashboard/admin')->middleware(['auth', 'LoginCheck:2'])->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
-    Route::post('/set-koneksi', [DashboardController::class, 'setKoneksi'])->name('set-koneksi');
     Route::get('/data-pengunjung', [PengunjungController::class, 'index'])->name('data_pengunjung');
     Route::get('/data-peminjaman-buku', [PeminjamanController::class, 'index'])->name('peminjaman-buku.index');
     Route::get('/data-akun', [AdminController::class, 'dataAkun'])->name('data_akun');
@@ -114,4 +103,23 @@ Route::get('/test-email', function () {
         Log::error('Gagal kirim email: ' . $e->getMessage());
         return 'Gagal kirim email: ' . $e->getMessage();
     }
+});
+
+Route::get('/cek-koneksi', function () {
+    $inlislite = session('inlislite_connection', 'mysql_inlislite_local');
+    $elib = session('elib_connection', 'sqlsrv_elib_local');
+
+    try {
+        $inlisliteDb = DB::connection($inlislite)->select('SELECT DATABASE() as db');
+    } catch (\Exception $e) {
+        $inlisliteDb = '❌ ERROR: ' . $e->getMessage();
+    }
+
+    try {
+        $elibDb = DB::connection($elib)->select('SELECT DB_NAME() as db');
+    } catch (\Exception $e) {
+        $elibDb = '❌ ERROR: ' . $e->getMessage();
+    }
+
+    return view('cek-koneksi', compact('inlislite', 'elib', 'inlisliteDb', 'elibDb'));
 });

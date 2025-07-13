@@ -151,10 +151,10 @@ class DashboardController extends Controller
         ));
     }
 
-    public function setKoneksi(Request $request)
-    {
-        Session::put('inlislite_connection', $request->inlislite_connection);
-        Session::put('elib_connection', $request->elib_connection);
-        return back()->with('success', 'Koneksi berhasil diubah.');
-    }
+    // public function setKoneksi(Request $request)
+    // {
+    //     Session::put('inlislite_connection', $request->inlislite_connection);
+    //     Session::put('elib_connection', $request->elib_connection);
+    //     return back()->with('success', 'Koneksi berhasil diubah.');
+    // }
 }

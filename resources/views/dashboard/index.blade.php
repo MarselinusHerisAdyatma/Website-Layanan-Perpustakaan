@@ -15,35 +15,11 @@
 <div class="dashboard-container">
 
 <!-- FILTER KONEKSI DATABASE -->
-<!-- <form action="{{ route('superadmin.set-koneksi') }}" method="POST" class="row g-2 align-items-end mb-4">
-    @csrf
-    <div class="col-auto">
-        <label for="inlislite_connection" class="form-label fw-bold mb-0">Koneksi Pengunjung</label>
-        <select name="inlislite_connection" id="inlislite_connection" class="form-select">
-            <option value="mysql_inlislite_local" {{ session('inlislite_connection') === 'mysql_inlislite_local' ? 'selected' : '' }}>
-                Lokal (XAMPP)
-            </option>
-            <option value="mysql_inlislite_ssh" {{ session('inlislite_connection') === 'mysql_inlislite_ssh' ? 'selected' : '' }}>
-                Online (via SSH)
-            </option>
-        </select>
-    </div>
-    <div class="col-auto">
-        <label for="elib_connection" class="form-label fw-bold mb-0">Koneksi Peminjaman</label>
-        <select name="elib_connection" id="elib_connection" class="form-select">
-            <option value="sqlsrv_elib_local" {{ session('elib_connection') === 'sqlsrv_elib_local' ? 'selected' : '' }}>
-                Lokal (SSMS)
-            </option>
-            <option value="sqlsrv_elib_remote" {{ session('elib_connection') === 'sqlsrv_elib_remote' ? 'selected' : '' }}>
-                Online (Kampus)
-            </option>
-        </select>
-    </div>
+<!-- <div class="alert alert-info">
+    <strong>Koneksi Pengunjung:</strong> {{ session('inlislite_connection') }} <br>
+    <strong>Koneksi Peminjaman:</strong> {{ session('elib_connection') }}
+</div> -->
 
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Terapkan Koneksi</button>
-    </div>
-</form> -->
 
     <!-- FILTER BAR: Koneksi + Prodi/Fakultas + Tahun -->
     <div class="d-flex justify-content-end gap-2 mb-3">
