@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cek Koneksi Database</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="p-5 bg-light">
-    <div class="container">
+@extends('templates.dashboard')
+
+@section('content')
+    <div class="container mt-5">
         <h2 class="mb-4">Status Koneksi Database</h2>
 
         <div class="mb-3">
@@ -21,5 +16,4 @@
             <p><strong>Database Terdeteksi:</strong> {!! is_string($elibDb) ? $elibDb : $elibDb[0]->db !!}</p>
         </div>
     </div>
-</body>
-</html>
+@endsection
