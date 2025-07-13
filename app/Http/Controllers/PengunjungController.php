@@ -16,8 +16,8 @@ class PengunjungController extends Controller
     public function index(Request $request)
     {
         
-        // $inlisliteConnection = session('inlislite_connection', 'mysql_inlislite_local');
-        $inlisliteConnection = session('inlislite_connection');
+        $inlisliteConnection = session('inlislite_connection', 'mysql_inlislite_local');
+        // $inlisliteConnection = session('inlislite_connection');
 
         $query = DB::connection($inlisliteConnection)
             ->table('memberguesses as mg')

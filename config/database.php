@@ -65,22 +65,22 @@ return [
         ],
         
         // Koneksi INLISLite Lokal (XAMPP)
-        // 'mysql_inlislite_local' => [
-        //     'driver' => 'mysql',
-        //     'host' => env('DB_INLIS_LOCAL_HOST', '127.0.0.1'),
-        //     'port' => env('DB_INLIS_LOCAL_PORT', '3309'),
-        //     'database' => env('DB_INLIS_LOCAL_DATABASE'),
-        //     'username' => env('DB_INLIS_LOCAL_USERNAME'),
-        //     'password' => env('DB_INLIS_LOCAL_PASSWORD'),
-        //     'unix_socket' => '',
-        //     'charset' => 'utf8mb4',
-        //     'collation' => 'utf8mb4_unicode_ci',
-        //     'prefix' => '',
-        //     'prefix_indexes' => true,
-        //     'strict' => true,
-        //     'engine' => null,
-        //     'options' => [],
-        // ],
+        'mysql_inlislite_local' => [
+            'driver' => 'mysql',
+            'host' => env('DB_INLIS_LOCAL_HOST', '127.0.0.1'),
+            'port' => env('DB_INLIS_LOCAL_PORT', '3309'),
+            'database' => env('DB_INLIS_LOCAL_DATABASE'),
+            'username' => env('DB_INLIS_LOCAL_USERNAME'),
+            'password' => env('DB_INLIS_LOCAL_PASSWORD'),
+            'unix_socket' => '',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => [],
+        ],
 
         // Koneksi INLISLite Online (via SSH Tunnel)
         'mysql_inlislite_ssh' => [
@@ -97,27 +97,23 @@ return [
             'prefix_indexes' => true,
             'strict' => false,
             'engine' => null,
-            'options' => [
-                'ssh' => [
-                    'host' => env('DB_INLIS_SSH_HOST'),
-                    'username' => env('DB_INLIS_SSH_USER'),
-                    'password' => env('DB_INLIS_SSH_PASSWORD'),
-                ],
-            ],
+            'options' => extension_loaded('pdo_mysql') ? [
+                PDO::ATTR_TIMEOUT => 3, // timeout biar ga lemot kalau remote ssh down
+            ] : [],
         ],
 
         // Koneksi eLib Lokal (SSMS)
-        // 'sqlsrv_elib_local' => [
-        //     'driver' => 'sqlsrv',
-        //     'host' => env('DB_ELIB_LOCAL_HOST', 'localhost\\SQLEXPRESS'),
-        //     'port' => env('DB_ELIB_LOCAL_PORT', '1433'),
-        //     'database' => env('DB_ELIB_LOCAL_DATABASE'),
-        //     'username' => env('DB_ELIB_LOCAL_USERNAME'),
-        //     'password' => env('DB_ELIB_LOCAL_PASSWORD'),
-        //     'charset' => 'utf8',
-        //     'prefix' => '',
-        //     'prefix_indexes' => true,
-        // ],
+        'sqlsrv_elib_local' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_ELIB_LOCAL_HOST', 'localhost\\SQLEXPRESS'),
+            'port' => env('DB_ELIB_LOCAL_PORT', '1433'),
+            'database' => env('DB_ELIB_LOCAL_DATABASE'),
+            'username' => env('DB_ELIB_LOCAL_USERNAME'),
+            'password' => env('DB_ELIB_LOCAL_PASSWORD'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
 
         // Koneksi eLib Online (Jaringan Kampus)
         'sqlsrv_elib_remote' => [
@@ -130,6 +126,9 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'options' => [
+                PDO::ATTR_TIMEOUT => 3, // Maksimum tunggu 3 detik
+            ],
         ],
 
         'pgsql' => [

@@ -14,8 +14,8 @@
  <div class="page-container d-flex flex-column min-vh-100">
     {{-- template header disini! --}}
     @include('templates.header')
-    {{-- extend content disini! --}}
-    @yield('content')
+    <main>{{-- extend content disini! --}}
+    @yield('content')</main>
     {{-- template footer disini! --}}
     @include('templates.footer')
 </div>

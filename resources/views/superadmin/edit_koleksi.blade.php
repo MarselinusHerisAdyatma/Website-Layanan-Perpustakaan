@@ -14,7 +14,7 @@
     </ol>
 </nav>
 
-<div class="edit-koleksi-wrapper py-5">
+<div class="edit-koleksi-wrapper">
     <div class="container">
         <div class="edit-koleksi-card mx-auto shadow">
             <h4 class="edit-koleksi-title mb-4">✏️ Edit Informasi Jumlah Koleksi</h4>

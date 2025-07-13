@@ -384,7 +384,7 @@ footer {
 
 .koleksi-wrapper {
     background-color: #f2f6fc;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     overflow-x: hidden;
 }
 
@@ -488,8 +488,9 @@ footer {
 }
 
 .edit-koleksi-wrapper {
+    margin-top: 50px;
     background-color: #f2f6fc;
-    min-height: 100vh;
+    /* min-height: 100vh; */
 }
 
 .edit-koleksi-card {

@@ -106,22 +106,20 @@ Route::get('/test-email', function () {
     }
 });
 
-Route::get('/cek-koneksi', function () {
-    DatabaseConnectionHelper::setDatabaseConnections(); // ← Ini WAJIB!
-
+Route::middleware(['auth', 'check.db'])->get('/cek-koneksi', function () {
     $inlislite = session('inlislite_connection');
     $elib = session('elib_connection');
 
     try {
         $inlisliteDb = DB::connection($inlislite)->select('SELECT DATABASE() as db');
     } catch (\Exception $e) {
-        $inlisliteDb = '❌ ERROR: Database connection [' . $inlislite . '] not configured.';
+        $inlisliteDb = '❌ ERROR: ' . $e->getMessage();
     }
 
     try {
         $elibDb = DB::connection($elib)->select('SELECT DB_NAME() as db');
     } catch (\Exception $e) {
-        $elibDb = '❌ ERROR: Database connection [' . $elib . '] not configured.';
+        $elibDb = '❌ ERROR: ' . $e->getMessage();
     }
 
     return view('cek-koneksi', compact('inlislite', 'elib', 'inlisliteDb', 'elibDb'));

@@ -21,11 +21,11 @@ class DashboardController extends Controller
         // $inlisliteConnection = session('mysql_inlislite_local');
         // $elibConnection = session('sqlsrv_elib_local');
 
-        $inlisliteConnection = session('inlislite_connection');
-        $elibConnection = session('elib_connection');
+        // $inlisliteConnection = session('inlislite_connection');
+        // $elibConnection = session('elib_connection');
 
-        // $inlisliteConnection = session('inlislite_connection', 'mysql_inlislite_local');
-        // $elibConnection = session('elib_connection', 'sqlsrv_elib_local');
+        $inlisliteConnection = session('inlislite_connection', 'mysql_inlislite_local');
+        $elibConnection = session('elib_connection', 'sqlsrv_elib_local');
 
         $filter = $request->get('filter', 'fakultas');
         $selectedYear = $request->get('tahun', 'all');

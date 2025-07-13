@@ -36,7 +36,7 @@
     </ol>
 </nav>
 
-<div class="koleksi-wrapper py-5">
+<div class="koleksi-wrapper">
     <div class="container">
         <div class="koleksi-card shadow-lg mx-auto">
             <div class="koleksi-header d-flex justify-content-between align-items-center">
