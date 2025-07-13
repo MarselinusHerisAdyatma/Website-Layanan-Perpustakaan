@@ -17,7 +17,7 @@ class PengunjungController extends Controller
     {
         
         // $inlisliteConnection = session('inlislite_connection', 'mysql_inlislite_local');
-        $inlisliteConnection = session('mysql_inlislite_ssh');
+        $inlisliteConnection = session('mysql_inlislite_ssh')->select(...);
 
         $query = DB::connection($inlisliteConnection)
             ->table('memberguesses as mg')

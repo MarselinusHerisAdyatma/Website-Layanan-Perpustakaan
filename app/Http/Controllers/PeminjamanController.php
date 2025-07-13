@@ -14,7 +14,7 @@ class PeminjamanController extends Controller
     public function index(Request $request)
     {
         // $connection = session('elib_connection', 'sqlsrv_elib_local');
-        $connection = session('sqlsrv_elib_remote');
+        $connection = session('sqlsrv_elib_remote')->select(...);
         // Setup Paginasi
         $page = $request->get('page', 1);
         $perPage = 25;
