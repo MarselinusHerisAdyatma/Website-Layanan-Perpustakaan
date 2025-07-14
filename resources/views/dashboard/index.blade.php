@@ -16,8 +16,13 @@
 
 <!-- FILTER KONEKSI DATABASE -->
 <div class="alert alert-info">
-    <strong>Koneksi Pengunjung:</strong> {{ session('inlislite_connection') }} <br>
-    <strong>Koneksi Peminjaman:</strong> {{ session('elib_connection') }}
+    <strong>Koneksi Pengunjung:</strong> {{ session('inlislite_connection', 'mysql_inlislite_local') }} <br>
+    <strong>Koneksi Peminjaman:</strong> {{ session('elib_connection', 'sqlsrv_elib_local') }}
+</div>
+
+<div>
+  🔌 INLIS: {{ session('inlislite_connection') ?? '❌ tidak terhubung' }}<br>
+  📚 eLib: {{ session('elib_connection') ?? '❌ tidak terhubung' }}
 </div>
 
 

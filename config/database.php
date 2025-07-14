@@ -79,7 +79,9 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
-            'options' => [],
+            'options' => extension_loaded('pdo_mysql') ? [
+                PDO::ATTR_TIMEOUT => 3, // max tunggu 3 detik
+            ] : [],
         ],
 
         // Koneksi INLISLite Online (via SSH Tunnel)
@@ -97,9 +99,13 @@ return [
             'prefix_indexes' => true,
             'strict' => false,
             'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? [
-                PDO::ATTR_TIMEOUT => 3, // timeout biar ga lemot kalau remote ssh down
-            ] : [],
+            'options' => [
+                'ssh' => [
+                    'host' => env('DB_INLIS_SSH_HOST'),
+                    'username' => env('DB_INLIS_SSH_USER'),
+                    'password' => env('DB_INLIS_SSH_PASSWORD'),
+                ],
+            ],
         ],
 
         // Koneksi eLib Lokal (SSMS)
@@ -127,7 +133,8 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'options' => [
-                PDO::ATTR_TIMEOUT => 3, // Maksimum tunggu 3 detik
+                'ConnectionTimeout' => 3, // max tunggu 3 detik juga
+                'QueryTimeout' => 3,
             ],
         ],
 

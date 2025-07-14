@@ -22,11 +22,9 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrapFive();
 
-        // Cek dan set koneksi database jika belum ada di session
+        // Jalankan pengecekan koneksi DB dinamis (cek + fallback)
         if (!app()->runningInConsole()) {
-            if (!session()->has('inlislite_connection') || !session()->has('elib_connection')) {
-                DatabaseConnectionHelper::setDatabaseConnections();
-            }
+            DatabaseConnectionHelper::setDatabaseConnections();
         }
     }
 }

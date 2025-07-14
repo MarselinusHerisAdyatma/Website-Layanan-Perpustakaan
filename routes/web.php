@@ -124,3 +124,12 @@ Route::middleware(['auth', 'check.db'])->get('/cek-koneksi', function () {
 
     return view('cek-koneksi', compact('inlislite', 'elib', 'inlisliteDb', 'elibDb'));
 });
+
+Route::get('/cek-inlislite-local', function () {
+    try {
+        DB::connection('mysql_inlislite_local')->getPdo();
+        return 'Sukses konek ke mysql_inlislite_local!';
+    } catch (\Exception $e) {
+        return 'Gagal: ' . $e->getMessage();
+    }
+});

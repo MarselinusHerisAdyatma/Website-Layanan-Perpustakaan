@@ -1,7 +1,8 @@
 {
   "build": {
     "env": {
-      "PHP_VERSION": "8.2"
+      "APP_ENV": "production",
+      "APP_DEBUG": "false"
     }
   },
   "deploy": {

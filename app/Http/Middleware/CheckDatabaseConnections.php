@@ -16,7 +16,7 @@ class CheckDatabaseConnections
             DatabaseConnectionHelper::setDatabaseConnections();
 
             // Simpan penanda agar tidak cek ulang terus-menerus
-            Cache::put('db_connection_checked', true, now()->addMinutes(5));
+            Cache::put('db_connection_checked', true, now()->addMinutes(2));
         }
 
         return $next($request);
